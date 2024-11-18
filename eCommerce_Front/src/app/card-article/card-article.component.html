@@ -1,0 +1,19 @@
+<div class="cardArticle">
+  <div class="cardContent">
+    <h2>{{ name }}</h2>
+    <img [src]="src" alt="{{ name }}" height="10em" />
+    <div class="rowPriceRate">
+      <p>Prix : {{ price }} €</p>
+      <div class="stars">
+        <i
+          *ngFor="let star of stars; let i = index"
+          class="fa-solid fa-star"
+          [ngClass]="{ filled: i < rating }"
+        >
+        </i
+        >
+      </div>
+    </div>
+    <i class="fa-solid fa-cart-shopping"></i>
+  </div>
+</div>
