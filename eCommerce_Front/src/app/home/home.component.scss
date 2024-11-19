@@ -1,9 +1,9 @@
 header {
   display: flex;
   justify-content: center;
-  padding: 2em;
+  padding: 4em;
   background-color: rgb(253, 215, 159);
-  margin-bottom: 4em;
+  margin-bottom: 8%;
   box-shadow: 0px 12px 14px -8px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 5% 5%;
 
@@ -26,6 +26,11 @@ header {
 }
 
 @media only screen and (max-width: 980px) {
+
+    header{
+        margin-bottom: 4em;
+        padding: 2em;
+    }
   .containerArticle {
     .cardGrid {
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
