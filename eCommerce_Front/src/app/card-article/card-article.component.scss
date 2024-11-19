@@ -40,6 +40,7 @@
       width: 100%;
       padding-bottom: 2%;
       justify-content: space-between;
+      white-space: nowrap;
 
       p {
         margin: 0 4%;
@@ -91,10 +92,11 @@
   }
 }
 
-
-
 @media only screen and (max-width: 980px) {
   .cardArticle {
+    &:hover {
+      scale: 1;
+    }
     .cardContent {
       h2 {
         height: 25px;
@@ -125,3 +127,14 @@
   }
 }
 
+@media only screen and (max-width: 371px) {
+  .cardArticle {
+    .cardContent {
+      .rowPriceRate {
+        flex-direction: column;
+        align-items: center;
+  
+      }
+    }
+  }
+}

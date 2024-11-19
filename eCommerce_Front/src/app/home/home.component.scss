@@ -6,6 +6,7 @@ header {
   margin-bottom: 8%;
   box-shadow: 0px 12px 14px -8px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 5% 5%;
+  white-space: nowrap;
 
   h1 {
     color: rgb(148, 25, 33);
@@ -13,33 +14,62 @@ header {
 }
 
 .containerArticle {
-  height: 75vh;
+  width: 60%; /* Largeur de 60% */
+  height: 65vh;
   overflow-y: scroll;
-  margin: 0 20%;
+  margin: 0 auto; /* Cela centre l'élément horizontalement */
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(253, 215, 159, 0.3);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 25, 33, 0.8);
+    border-radius: 10px;
+    border: 2px solid rgba(253, 215, 159, 0.6);
+  }
 
   .cardGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2em;
     margin: 0em 1em;
+    
   }
 }
 
 @media only screen and (max-width: 980px) {
-
-    header{
-        margin-bottom: 4em;
-        padding: 2em;
-    }
+  header {
+    margin-bottom: 4em;
+    padding: 2em;
+  }
   .containerArticle {
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
     .cardGrid {
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       gap: 1em;
       margin: 0;
 
-      .card {
-        max-width: 100px;
-      }
+      
     }
   }
 }
+
+@media only screen and (max-width: 371px) {
+ 
+   
+  header{
+    font-size: 0.6em;
+  }
+        
+      
+    
+  }
