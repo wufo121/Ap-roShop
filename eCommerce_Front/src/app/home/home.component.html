@@ -1,39 +1,39 @@
 <header>
-    <h1>APÉRO SHOP</h1>
-  </header>
-  
+  <h1>APÉRO SHOP</h1>
+</header>
+<div class="containerArticle">
   <section class="cardGrid">
-    <app-card-article 
+    <app-card-article class="card"
       *ngFor="let article of articles"
-      [name]="article.nameArticle" 
+      [name]="article.nameArticle"
       [src]="article.imageUrl"
       [price]="article.priceArticle"
-      [rating]="article.rate">
-      
+      [rating]="article.rate"
+    >
     </app-card-article>
-    <app-card-article 
+    <app-card-article
       *ngFor="let article of articles"
-      [name]="article.nameArticle" 
+      [name]="article.nameArticle"
       [src]="article.imageUrl"
       [price]="article.priceArticle"
-      [rating]="article.rate">
-      
+      [rating]="article.rate"
+    >
     </app-card-article>
-    <app-card-article 
+    <app-card-article
       *ngFor="let article of articles"
-      [name]="article.nameArticle" 
+      [name]="article.nameArticle"
       [src]="article.imageUrl"
       [price]="article.priceArticle"
-      [rating]="article.rate">
-      
+      [rating]="article.rate"
+    >
     </app-card-article>
-    <app-card-article 
+    <app-card-article
       *ngFor="let article of articles"
-      [name]="article.nameArticle" 
+      [name]="article.nameArticle"
       [src]="article.imageUrl"
       [price]="article.priceArticle"
-      [rating]="article.rate">
-      
+      [rating]="article.rate"
+    >
     </app-card-article>
   </section>
-  
+</div>
