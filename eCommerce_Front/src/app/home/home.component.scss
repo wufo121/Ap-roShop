@@ -1,9 +1,10 @@
 header {
+  position: relative;
   display: flex;
   justify-content: center;
   padding: 4em;
   background-color: rgb(253, 215, 159);
-  margin-bottom: 8%;
+  margin-bottom: 2%;
   box-shadow: 0px 12px 14px -8px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 5% 5%;
   white-space: nowrap;
@@ -11,13 +12,33 @@ header {
   h1 {
     color: rgb(148, 25, 33);
   }
+  a{
+    position: absolute;
+    right: 1em;
+    color: rgb(148, 25, 33);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.2em;
+
+  }
+}
+
+.inputSection{
+  display: flex;
+  justify-content: center;
+  .searchField{
+    width: 25vw;
+    margin: 3em 0;
+    font-size: 1.5em;
+    padding:1% 0;
+  }
 }
 
 .containerArticle {
-  width: 60%; /* Largeur de 60% */
-  height: 65vh;
+  width: 60%; 
+  height: 60vh;
   overflow-y: scroll;
-  margin: 0 auto; /* Cela centre l'élément horizontalement */
+  margin: 0 auto;
 
   &::-webkit-scrollbar {
     width: 15px;
@@ -45,8 +66,27 @@ header {
 
 @media only screen and (max-width: 980px) {
   header {
-    margin-bottom: 4em;
+    margin-bottom: 2em;
     padding: 2em;
+    flex-direction: column;
+    align-items: center;
+
+    a{
+      position:initial;
+      margin: 0;
+    }
+  }
+
+  .inputSection{
+    display: flex;
+    justify-content: center;
+    .searchField{
+      width: 25vw;
+      margin: 1em 0;
+      font-size: 0.5em;
+      padding:1% 0;
+      margin-bottom:5em ;
+    }
   }
   .containerArticle {
     &::-webkit-scrollbar {
@@ -68,6 +108,8 @@ header {
    
   header{
     font-size: 0.6em;
+    
+    
   }
         
       

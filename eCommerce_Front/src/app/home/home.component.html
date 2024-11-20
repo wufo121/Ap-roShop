@@ -1,9 +1,13 @@
 <header>
   <h1>APÉRO SHOP</h1>
+  <a href="">Connexion</a>
 </header>
+<div class="inputSection">
+  <input type="text" class="searchField" placeholder="Rechercher.." />
+</div>
 <div class="containerArticle">
   <section class="cardGrid">
-    <app-card-article 
+    <app-card-article
       *ngFor="let article of articles"
       [name]="article.nameArticle"
       [src]="article.imageUrl"
