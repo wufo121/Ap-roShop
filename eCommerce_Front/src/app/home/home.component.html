@@ -1,10 +1,28 @@
 <header>
   <h1>APÉRO SHOP</h1>
-  <a href="">Connexion</a>
+  <a (click)="redirectToLoginPage()">Login</a>
 </header>
+
+<!-- my top search input -->
+
 <div class="inputSection">
   <input type="text" class="searchField" placeholder="Rechercher.." />
 </div>
+
+<!-- left section desktop, top responsive -->
+
+<div class="filterSection"></div>
+
+<!-- right section -->
+
+<div class="ShoppingCartSection">
+  <div class="DropDown" (click)="toggleDropDown($event)">
+    <div class="DropDownContent"></div>
+  </div>
+</div>
+
+<!-- my section middle, left responsive who contain all article -->
+
 <div class="containerArticle">
   <section class="cardGrid">
     <app-card-article

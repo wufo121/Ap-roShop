@@ -1,0 +1,42 @@
+h1 {
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  color: rgb(148, 25, 33);
+}
+
+.formSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    width: 30vw;
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      li {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        label {
+          font-size: 2em;
+        }
+        input {
+          padding: 1em;
+          font-size: 1.5em;
+        }
+      }
+    }
+  }
+}
+.crerUnCompte {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  cursor: pointer;
+}

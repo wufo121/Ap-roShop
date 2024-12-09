@@ -12,30 +12,72 @@ header {
   h1 {
     color: rgb(148, 25, 33);
   }
-  a{
+  a {
     position: absolute;
     right: 1em;
     color: rgb(148, 25, 33);
     text-decoration: none;
     font-weight: 500;
     font-size: 1.2em;
-
+    cursor: pointer;
   }
 }
 
-.inputSection{
+// second section after hearder, my input
+
+.inputSection {
   display: flex;
   justify-content: center;
-  .searchField{
+  margin: 0 auto;
+  width: 60%;
+  .searchField {
     width: 25vw;
     margin: 3em 0;
     font-size: 1.5em;
-    padding:1% 0;
+    padding: 1% 0;
+  }
+}
+// third section, filter
+.filterSection {
+  color: red;
+}
+
+// fourth section, cart
+
+.ShoppingCartSection {
+  width: 19%;
+  position: absolute;
+  right: 0;
+  z-index: 10;
+
+  .DropDown {
+    position: relative;
+    height: 2.5em;
+    width: 100%;
+    background-color: rgb(179, 167, 167);
+    border-radius: 15px;
+    margin-bottom: 20px;
+
+    .DropDownContent {
+      position: relative;
+      z-index: -1;
+      border-radius: 20px;
+      height: 2.5em;
+      overflow: hidden;
+      background-color: black;
+      transition: height 0.3s ease-out;
+
+      &.active {
+        height: 60vh;
+      }
+    }
   }
 }
 
+// principal section article
+
 .containerArticle {
-  width: 60%; 
+  width: 60%;
   height: 60vh;
   overflow-y: scroll;
   margin: 0 auto;
@@ -60,7 +102,6 @@ header {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2em;
     margin: 0em 1em;
-    
   }
 }
 
@@ -71,24 +112,55 @@ header {
     flex-direction: column;
     align-items: center;
 
-    a{
-      position:initial;
+    a {
+      position: initial;
       margin: 0;
     }
   }
+  // second section after hearder, my input
 
-  .inputSection{
+  .inputSection {
     display: flex;
     justify-content: center;
-    .searchField{
+    .searchField {
       width: 25vw;
       margin: 1em 0;
       font-size: 0.5em;
-      padding:1% 0;
-      margin-bottom:5em ;
+      padding: 1% 0;
+      margin-bottom: 5em;
     }
   }
+  // third section, filter
+
+  .filterSection {
+    color: red;
+  }
+
+  // fourth section, cart
+
+  .ShoppingCartSection {
+    width: 35%;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+
+    .DropDown {
+      position: relative;
+      height: 1em;
+      width: 100%;
+      background-color: rgb(179, 167, 167);
+      border-radius: 15px;
+
+      .DropDownContent {
+        height: 1em;
+      }
+    }
+  }
+  // principal section article
+
   .containerArticle {
+    margin: 0;
+    margin-left: 1em;
     &::-webkit-scrollbar {
       width: 7px;
     }
@@ -97,21 +169,12 @@ header {
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       gap: 1em;
       margin: 0;
-
-      
     }
   }
 }
 
 @media only screen and (max-width: 371px) {
- 
-   
-  header{
+  header {
     font-size: 0.6em;
-    
-    
   }
-        
-      
-    
-  }
+}
