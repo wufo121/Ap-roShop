@@ -2,34 +2,39 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { response } from 'express';
 import { AppService } from '../app.service';
+import { error } from 'console';
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, NgClass],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
 })
-export class LoginComponent {
+export class RegisterComponent {
   constructor(private router: Router, private appService: AppService) {}
 
   email: string = '';
   password: string = '';
+  passwordConfirmation: string = '';
   errorMessage: string = '';
   isButtonRed: boolean = false;
 
   onSubmit() {
-    if (this.email && this.password) {
-      this.appService.login(this.email, this.password).subscribe({
+    if (
+      this.email &&
+      this.password &&
+      this.password === this.passwordConfirmation
+    ) {
+      this.appService.register(this.email, this.password).subscribe({
         next: (response: any) => {
-          console.log('Login successful:', response);
+          console.log('Creation de compte reussi', response);
           this.redirectToHomePage();
         },
         error: (err) => {
-          console.error('Login failed:', err);
-          this.errorMessage = 'Email ou password incorrect';
+          console.error('Register failed', err);
+          this.errorMessage =
+            "Erreur lors de l'inscription. Veuillez réessayer.";
           this.isButtonRed = true;
           setTimeout(() => {
             this.isButtonRed = false;
@@ -48,7 +53,7 @@ export class LoginComponent {
   redirectToHomePage() {
     this.router.navigate(['/home']);
   }
-  redirectToRegister() {
-    this.router.navigate(['/register']);
+  redirectToLogin() {
+    this.router.navigate(['/login']);
   }
 }

@@ -24,14 +24,27 @@
           required
         />
       </li>
+      <li>
+        <label for="passwordConfirmation">Password verification</label>
+        <input
+          type="password"
+          id="passwordConfirmation"
+          placeholder="1234..."
+          name="passwordConfirmation"
+          [(ngModel)]="passwordConfirmation"
+          required
+        />
+      </li>
     </ul>
     <button
       type="submit"
       [disabled]="!loginForm.valid"
       [ngClass]="{ 'btn-error': isButtonRed }"
     >
-      Se Connecter
+      Crer un Compte
     </button>
   </form>
 </div>
-<a (click)="redirectToRegister()" class="crerUnCompte">Crer un compte</a>
+<a (click)="redirectToLogin()" class="seConnecter"
+  >Deja un compte? Se Connecter</a
+>

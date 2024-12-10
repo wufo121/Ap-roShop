@@ -1,21 +1,22 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { Articles } from './article';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
+  constructor(private http: HttpClient) {}
 
+  login(email: string, password: string): Observable<any> {
+    return this.http.post('api/login', { email, password });
+  }
 
-  private http = inject(HttpClient);
-  private Articles = signal<Articles[]>([])
-  readonly url = 'http://localhost:3000/';
+  register(email: string, password: string): Observable<any> {
+    return this.http.post('api/register', { email, password });
+  }
 
-  getArticles(): Observable<Articles[]> {
-    return this.http.get<Articles[]>(this.url).pipe(
-      tap(Articles => this.Articles.set(Articles))
-    );
+  getArticles(): Observable<any[]> {
+    return this.http.get<any[]>('/api/articles');
   }
 }
