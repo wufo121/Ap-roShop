@@ -19,6 +19,7 @@ export class AppService {
   getArticles(): Observable<any[]> {
     return this.http.get<any[]>('/api/articles');
   }
+<<<<<<< HEAD
 
   getCurrentUser(): Observable<any> {
     const token = localStorage.getItem('currentUser');
@@ -30,5 +31,9 @@ export class AppService {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>('api/me', { headers });
+=======
+  isLoggedIn(): boolean {
+    return localStorage.getItem('curentUser') !== null;
+>>>>>>> ecf55a6 (Update: we can see username when user is login)
   }
 }
