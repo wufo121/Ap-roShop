@@ -1,12 +1,23 @@
 <header>
   <h1>APÉRO SHOP</h1>
-  <a (click)="redirectToLoginPage()">Login</a>
+  <div class="loginSection">
+    <div class="nameLogout" *ngIf="isLoggedIn() && user">
+      <p>{{ user.username }} /&nbsp;&nbsp;</p>
+      <a (click)="logout()"> Se déconnecter</a>
+    </div>
+    <a *ngIf="!isLoggedIn()" (click)="redirectToLoginPage()">Login</a>
+  </div>
 </header>
 
 <!-- my top search input -->
 
 <div class="inputSection">
   <input type="text" class="searchField" placeholder="Rechercher.." />
+</div>
+
+<!-- Add one article when Admin -->
+<div *ngIf="isAdmin() && user" class="addSection">
+  <button class="buttonAdd">+</button>
 </div>
 
 <!-- left section desktop, top responsive -->

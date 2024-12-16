@@ -23,7 +23,7 @@
  */
 html {
   -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  box-sizing: border-box;
   font-family: sans-serif;
   /* 1 */
   line-height: 1.4;
@@ -41,16 +41,19 @@ html {
  */
 body {
   margin: 0;
-  background-color:rgb(254, 244, 230);
+  background-color: rgb(254, 244, 230);
 }
 
 /*
  * Inheriting box-sizing
  * https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
  */
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   -moz-box-sizing: inherit;
-       box-sizing: inherit;
+  box-sizing: inherit;
+  cursor: default;
 }
 
 /* ==========================================================================
@@ -216,7 +219,7 @@ figure {
  */
 hr {
   -moz-box-sizing: content-box;
-       box-sizing: content-box;
+  box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
@@ -369,7 +372,7 @@ input[type="search"]::-webkit-search-decoration {
  */
 fieldset {
   border: 1px solid #c0c0c0;
-  margin: 0 ;
+  margin: 0;
   padding: 0.35em 0.625em 0.75em;
 }
 
@@ -459,4 +462,3 @@ fieldset {
 textarea {
   resize: vertical;
 }
-

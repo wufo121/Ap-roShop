@@ -29,7 +29,7 @@ export class RegisterComponent {
       this.appService.register(this.email, this.password).subscribe({
         next: (response: any) => {
           console.log('Creation de compte reussi', response);
-          this.redirectToHomePage();
+          this.redirectToLogin();
         },
         error: (err) => {
           console.error('Register failed', err);

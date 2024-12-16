@@ -8,18 +8,33 @@ header {
   box-shadow: 0px 12px 14px -8px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 5% 5%;
   white-space: nowrap;
+  margin-bottom: 3em;
 
   h1 {
     color: rgb(148, 25, 33);
   }
-  a {
+  .loginSection {
     position: absolute;
-    right: 1em;
-    color: rgb(148, 25, 33);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.2em;
-    cursor: pointer;
+    right: 10%;
+    a {
+      color: rgb(148, 25, 33);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .nameLogout {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      p {
+        color: rgb(148, 25, 33);
+        font-weight: 500;
+        font-size: 1.2em;
+        cursor: initial;
+      }
+    }
   }
 }
 
@@ -32,17 +47,49 @@ header {
   width: 60%;
   .searchField {
     width: 25vw;
-    margin: 3em 0;
     font-size: 1.5em;
     padding: 1% 0;
   }
 }
-// third section, filter
+
+// add Section
+
+.addSection {
+  padding: 1em 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+  position: relative;
+
+  .buttonAdd {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(237, 59, 59, 0.9);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// section filter
+
 .filterSection {
   color: red;
 }
 
-// fourth section, cart
+// section cart
 
 .ShoppingCartSection {
   width: 19%;
@@ -80,7 +127,7 @@ header {
   width: 60%;
   height: 60vh;
   overflow-y: scroll;
-  margin: 0 auto;
+  margin: 1em auto;
 
   &::-webkit-scrollbar {
     width: 15px;
@@ -112,7 +159,7 @@ header {
     flex-direction: column;
     align-items: center;
 
-    a {
+    .loginSection {
       position: initial;
       margin: 0;
     }
@@ -128,6 +175,28 @@ header {
       font-size: 0.5em;
       padding: 1% 0;
       margin-bottom: 5em;
+    }
+  }
+
+  .addSection {
+    padding: 0.5em;
+
+    .buttonAdd {
+      left: 60%;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(237, 59, 59, 0.9);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
     }
   }
   // third section, filter

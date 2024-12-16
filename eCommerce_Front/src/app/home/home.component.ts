@@ -15,14 +15,24 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   private appService = inject(AppService);
   articles: any[] = [];
+  user: any = null;
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.appService.getArticles().subscribe((data) => {
-      console.log('Articles received:', data);
-      this.articles = data;
-    });
+    if (typeof window !== 'undefined' && window.localStorage) {
+      this.appService.getCurrentUser().subscribe({
+        next: (data) => {
+          this.user = data.user;
+          console.log(this.user);
+        },
+      });
+      this.appService.getArticles().subscribe((data) => {
+        console.log('Articles received:', data);
+        this.articles = data;
+      });
+    }
   }
+
   toggleDropDown(event$: Event) {
     const dropdown = (event$.currentTarget as HTMLElement).querySelector(
       '.DropDownContent'
@@ -31,6 +41,26 @@ export class HomeComponent implements OnInit {
       dropdown.classList.toggle('active');
     }
   }
+
+  isLoggedIn(): boolean {
+    if (
+      typeof window !== 'undefined' &&
+      localStorage.getItem('currentUser') !== null
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    location.reload();
+  }
+
+  isAdmin(): boolean {
+    return this.isLoggedIn() && this.user?.role === 'admin';
+  }
+
   redirectToLoginPage() {
     this.router.navigate(['/login']);
   }

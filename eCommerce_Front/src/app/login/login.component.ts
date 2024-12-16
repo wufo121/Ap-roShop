@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { response } from 'express';
 import { AppService } from '../app.service';
 @Component({
   selector: 'app-login',
@@ -25,6 +24,9 @@ export class LoginComponent {
       this.appService.login(this.email, this.password).subscribe({
         next: (response: any) => {
           console.log('Login successful:', response);
+
+          localStorage.setItem('currentUser', response);
+
           this.redirectToHomePage();
         },
         error: (err) => {

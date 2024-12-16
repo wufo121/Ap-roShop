@@ -38,14 +38,13 @@
     .rowPriceRate {
       display: flex;
       width: 100%;
-      padding:6% 0;
-     
+      padding: 6% 0;
+
       justify-content: space-between;
       white-space: nowrap;
 
       p {
         margin: 0 4%;
-        
       }
 
       .stars {
@@ -70,6 +69,7 @@
       position: relative;
       z-index: 1;
       overflow: hidden;
+      cursor: pointer;
 
       &::after {
         content: "";
@@ -85,6 +85,7 @@
         transform: scaleX(0);
         transform-origin: center;
         transition: transform 0.3s cubic-bezier(0.92, 0.26, 0.83, 0.67);
+        cursor: pointer;
       }
 
       &:hover::after {
@@ -135,7 +136,6 @@
       .rowPriceRate {
         flex-direction: column;
         align-items: center;
-  
       }
     }
   }
