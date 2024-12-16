@@ -25,16 +25,20 @@ export class AppService {
   getCurrentUser(): Observable<any> {
     const token = localStorage.getItem('currentUser');
     console.log('Token retrieved:', token);
+<<<<<<< HEAD
 =======
 
   getCurrentUser(): Observable<any> {
     const token = localStorage.getItem('currentUser');
 >>>>>>> d5d3dce (Update: Add token with jwt and get data of curentUser)
+=======
+>>>>>>> b4fc4b3 (Update: Backend is better arranged)
 
     if (!token) {
       return new Observable<any>();
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>('api/me', { headers });
@@ -48,6 +52,9 @@ export class AppService {
       'Authorization',
       `Bearer ${parsedToken}`
     );
+=======
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+>>>>>>> b4fc4b3 (Update: Backend is better arranged)
     return this.http.get<any>('api/me', { headers });
 >>>>>>> d5d3dce (Update: Add token with jwt and get data of curentUser)
   }
