@@ -58,4 +58,7 @@ export class AppService {
     return this.http.get<any>('api/me', { headers });
 >>>>>>> d5d3dce (Update: Add token with jwt and get data of curentUser)
   }
+  addArticle(formData: FormData): Observable<any> {
+    return this.http.post('/api/articles', formData);
+  }
 }

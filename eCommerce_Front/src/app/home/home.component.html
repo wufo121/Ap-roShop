@@ -17,7 +17,7 @@
 
 <!-- Add one article when Admin -->
 <div *ngIf="isAdmin() && user" class="addSection">
-  <button class="buttonAdd">+</button>
+  <button (click)="redirectToAddArticle()" class="buttonAdd">+</button>
 </div>
 
 <!-- left section desktop, top responsive -->
@@ -39,7 +39,7 @@
     <app-card-article
       *ngFor="let article of articles"
       [name]="article.name"
-      [src]="article.imageUrl"
+      [src]="'http://localhost:3000' + article.imageUrl"
       [price]="article.price"
       [rating]="article.rate"
     >

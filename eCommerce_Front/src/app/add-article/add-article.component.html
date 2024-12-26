@@ -1,0 +1,52 @@
+<h1>Ajouter un article</h1>
+<div class="inputAdd">
+  <p>Nom de l'article</p>
+  <input
+    type="text"
+    name="name"
+    placeholder="Chips..."
+    [(ngModel)]="article.name"
+  />
+  <p>Description de l'article</p>
+  <input
+    type="text"
+    name="description"
+    placeholder="Chips à saveur ..."
+    [(ngModel)]="article.description"
+  />
+  <p>Prix de l'article</p>
+  <input
+    type="number"
+    name="price"
+    placeholder="2€"
+    step="0.01"
+    [(ngModel)]="article.price"
+  />
+  <p>Catégorie de l'article</p>
+  <select name="category" id="category_choice" [(ngModel)]="article.category">
+    <option value="non végétarien">Non Végétarien</option>
+    <option value="végétarien">Végétarien</option>
+    <option value="boissons alcolisées">Boissons Alcoolisées</option>
+    <option value="boissons non-alcolisées">Boissons Non-Alcoolisées</option>
+  </select>
+  <p>Stock disponible</p>
+  <input
+    type="number"
+    name="stock"
+    placeholder="400"
+    [(ngModel)]="article.stock"
+  />
+  <p>Image de l'article</p>
+  <label for="file-upload" class="fileUpload">Ajouter une image</label>
+  <input
+    id="file-upload"
+    type="file"
+    name="image"
+    accept="image/*"
+    (change)="previewImage($event)"
+  />
+  <div class="image-preview" *ngIf="imagePreview">
+    <img [src]="imagePreview" alt="Prévisualisation de l'image" />
+  </div>
+  <button (click)="submitForm()">Ajouter l'article</button>
+</div>

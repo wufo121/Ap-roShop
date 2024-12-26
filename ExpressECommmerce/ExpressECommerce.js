@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
+const path = require("path");
 
 const article = require("./router/article");
 const login = require("./router/login");
@@ -10,6 +12,18 @@ dotenv.config();
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
+
+app.use(
+   "/imagesArticle",
+   express.static(path.join(__dirname, "public/imagesArticle"))
+);
+
+app.use(
+   "/imagesArticle",
+   express.static(path.join(__dirname, "public/imagesArticle"))
+);
 
 app.use(express.json());
 

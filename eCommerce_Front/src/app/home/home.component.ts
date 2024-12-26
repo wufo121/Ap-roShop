@@ -64,4 +64,7 @@ export class HomeComponent implements OnInit {
   redirectToLoginPage() {
     this.router.navigate(['/login']);
   }
+  redirectToAddArticle() {
+    this.router.navigate(['/add']);
+  }
 }
