@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,49 +20,27 @@ export class AppService {
     return this.http.get<any[]>('/api/articles');
   }
 
-  getArticleById(id: string): Observable<any> {
-    return this.http.get(`api/articles/${id}`);
+  getCurrentUser(): Observable<any> {
+    const token = localStorage.getItem('currentUser');
+    console.log('Token retrieved:', token);
+
+    if (!token) {
+      return new Observable<any>();
+    }
+
+    const parsedToken = JSON.parse(token);
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${parsedToken}`
+    );
+    return this.http.get<any>('api/me', { headers });
   }
 
-  getCurrentUser(): Observable<any> {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('currentUser');
-
-      if (!token) {
-        return of({ user: null });
-      }
-
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http.get<any>('api/me', { headers });
-    }
-    return of({ user: null });
+  isLoggedIn(): boolean {
+    return localStorage.getItem('currentUser') !== null;
   }
 
   addArticle(formData: FormData): Observable<any> {
     return this.http.post('/api/articles', formData);
-  }
-
-  deleteArticleById(id: number): Observable<any> {
-    return this.http.delete(`/api/articles/${id}`);
-  }
-
-  isLoggedIn(): boolean {
-    if (typeof window !== 'undefined') {
-      return !!localStorage.getItem('currentUser');
-    }
-    return false;
-  }
-
-  isAdmin(user: any): boolean {
-    if (typeof window !== 'undefined') {
-      return user?.role === 'admin';
-    }
-    return false;
-  }
-  logout(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('currentUser');
-      location.reload();
-    }
   }
 }
