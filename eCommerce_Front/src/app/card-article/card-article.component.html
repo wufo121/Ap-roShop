@@ -1,10 +1,6 @@
-<div class="cardArticle" (click)="redirectToPageArticle()">
+<div class="cardArticle">
   <div class="cardContent">
-    <div
-      *ngIf="isAdmin()"
-      class="deleteSection"
-      (click)="deleteArticle($event)"
-    >
+    <div *ngIf="isAdmin()" class="deleteSection" (click)="deleteArticle()">
       <i class="fa-solid fa-trash"></i>
     </div>
     <h2>{{ name }}</h2>
@@ -13,10 +9,11 @@
       <p>Prix : {{ price }} €</p>
       <div class="stars">
         <i
-          *ngFor="let star of [0, 1, 2, 3, 4]; let i = index"
-          class="fa fa-star"
+          *ngFor="let star of stars; let i = index"
+          class="fa-solid fa-star"
           [ngClass]="{ filled: i < rating }"
-        ></i>
+        >
+        </i>
       </div>
     </div>
     <i class="fa-solid fa-cart-shopping"></i>

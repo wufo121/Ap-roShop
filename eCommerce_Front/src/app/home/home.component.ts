@@ -4,21 +4,18 @@ import { CommonModule } from '@angular/common';
 import { CardArticleComponent } from '../card-article/card-article.component';
 import { ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, CardArticleComponent, HeaderComponent],
+  imports: [CommonModule, CardArticleComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
-  public appService = inject(AppService);
+  private appService = inject(AppService);
   articles: any[] = [];
   user: any = null;
-
   constructor(private router: Router) {}
 
   ngOnInit() {
@@ -26,37 +23,12 @@ export class HomeComponent implements OnInit {
       this.appService.getCurrentUser().subscribe({
         next: (data) => {
           this.user = data.user;
+          console.log(this.user);
         },
       });
-
-      this.appService.getArticles().subscribe((articles) => {
-        this.articles = articles;
-
-        this.articles.forEach((article) => {
-          this.appService.getRatingByArticleId(article.id).subscribe({
-            next: (response: any) => {
-              if (response && response.data && Array.isArray(response.data)) {
-                const averageRating = this.appService.getAverageRating(
-                  response.data
-                );
-                article.rating = Math.round(averageRating);
-              } else {
-                console.error(
-                  `Réponse inattendue pour l'article ${article.id}:`,
-                  response
-                );
-                article.rating = 0;
-              }
-            },
-            error: (err) => {
-              console.error(
-                `Erreur lors de la récupération de la notation pour l'article ${article.id}`,
-                err
-              );
-              article.rating = 0;
-            },
-          });
-        });
+      this.appService.getArticles().subscribe((data) => {
+        console.log('Articles received:', data);
+        this.articles = data;
       });
     }
   }
@@ -70,10 +42,28 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  isLoggedIn(): boolean {
+    return this.appService.isLoggedIn();
+  }
+
+  isAdmin(): boolean {
+    return this.appService.isAdmin(this.user);
+  }
+
+  logout() {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('currentUser');
+      location.reload();
+    }
+  }
+
   handleArticleDeletion(articleId: number) {
     this.articles = this.articles.filter((article) => article.id !== articleId);
   }
 
+  redirectToLoginPage() {
+    this.router.navigate(['/login']);
+  }
   redirectToAddArticle() {
     this.router.navigate(['/add']);
   }
