@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,46 +19,50 @@ export class AppService {
   getArticles(): Observable<any[]> {
     return this.http.get<any[]>('/api/articles');
   }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-  getCurrentUser(): Observable<any> {
-    const token = localStorage.getItem('currentUser');
-    console.log('Token retrieved:', token);
-<<<<<<< HEAD
-=======
-
-  getCurrentUser(): Observable<any> {
-    const token = localStorage.getItem('currentUser');
->>>>>>> d5d3dce (Update: Add token with jwt and get data of curentUser)
-=======
->>>>>>> b4fc4b3 (Update: Backend is better arranged)
-
-    if (!token) {
-      return new Observable<any>();
-    }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>('api/me', { headers });
-=======
-  isLoggedIn(): boolean {
-    return localStorage.getItem('curentUser') !== null;
->>>>>>> ecf55a6 (Update: we can see username when user is login)
-=======
-    const parsedToken = JSON.parse(token);
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${parsedToken}`
-    );
-=======
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
->>>>>>> b4fc4b3 (Update: Backend is better arranged)
-    return this.http.get<any>('api/me', { headers });
->>>>>>> d5d3dce (Update: Add token with jwt and get data of curentUser)
+  getArticleById(id: string): Observable<any> {
+    return this.http.get(`api/articles/${id}`);
   }
+
+  getCurrentUser(): Observable<any> {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('currentUser');
+
+      if (!token) {
+        return of({ user: null });
+      }
+
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<any>('api/me', { headers });
+    }
+    return of({ user: null });
+  }
+
   addArticle(formData: FormData): Observable<any> {
     return this.http.post('/api/articles', formData);
+  }
+
+  deleteArticleById(id: number): Observable<any> {
+    return this.http.delete(`/api/articles/${id}`);
+  }
+
+  isLoggedIn(): boolean {
+    if (typeof window !== 'undefined') {
+      return !!localStorage.getItem('currentUser');
+    }
+    return false;
+  }
+
+  isAdmin(user: any): boolean {
+    if (typeof window !== 'undefined') {
+      return user?.role === 'admin';
+    }
+    return false;
+  }
+  logout(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('currentUser');
+      location.reload();
+    }
   }
 }

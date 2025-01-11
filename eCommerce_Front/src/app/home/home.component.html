@@ -1,13 +1,4 @@
-<header>
-  <h1>APÉRO SHOP</h1>
-  <div class="loginSection">
-    <div class="nameLogout" *ngIf="isLoggedIn() && user">
-      <p>{{ user.username }} /&nbsp;&nbsp;</p>
-      <a (click)="logout()"> Se déconnecter</a>
-    </div>
-    <a *ngIf="!isLoggedIn()" (click)="redirectToLoginPage()">Login</a>
-  </div>
-</header>
+<app-header></app-header>
 
 <!-- my top search input -->
 
@@ -16,7 +7,7 @@
 </div>
 
 <!-- Add one article when Admin -->
-<div *ngIf="isAdmin() && user" class="addSection">
+<div *ngIf="appService.isAdmin(user) && user" class="addSection">
   <button (click)="redirectToAddArticle()" class="buttonAdd">+</button>
 </div>
 
@@ -42,30 +33,9 @@
       [src]="'http://localhost:3000' + article.imageUrl"
       [price]="article.price"
       [rating]="article.rate"
-    >
-    </app-card-article>
-    <app-card-article
-      *ngFor="let article of articles"
-      [name]="article.name"
-      [src]="article.imageUrl"
-      [price]="article.price"
-      [rating]="article.rate"
-    >
-    </app-card-article>
-    <app-card-article
-      *ngFor="let article of articles"
-      [name]="article.name"
-      [src]="article.imageUrl"
-      [price]="article.price"
-      [rating]="article.rate"
-    >
-    </app-card-article>
-    <app-card-article
-      *ngFor="let article of articles"
-      [name]="article.name"
-      [src]="article.imageUrl"
-      [price]="article.price"
-      [rating]="article.rate"
+      [id]="article.id"
+      [user]="user"
+      (articleDeleted)="handleArticleDeletion($event)"
     >
     </app-card-article>
   </section>

@@ -1,0 +1,59 @@
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 4em;
+  background-color: rgb(253, 215, 159);
+  margin-bottom: 2%;
+  box-shadow: 0px 12px 14px -8px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 5% 5%;
+  white-space: nowrap;
+  margin-bottom: 3em;
+
+  h1 {
+    color: rgb(148, 25, 33);
+  }
+  .loginSection {
+    position: absolute;
+    right: 10%;
+    a {
+      color: rgb(148, 25, 33);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .nameLogout {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      p {
+        color: rgb(148, 25, 33);
+        font-weight: 500;
+        font-size: 1.2em;
+        cursor: initial;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  header {
+    margin-bottom: 2em;
+    padding: 2em;
+    flex-direction: column;
+    align-items: center;
+
+    .loginSection {
+      position: initial;
+      margin: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 371px) {
+  header {
+    font-size: 0.6em;
+  }
+}

@@ -1,9 +1,12 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const {
    getAllArticles,
    saveArticle,
+   deleteArticleById,
+   getArticleById,
 } = require("../mysql/articleFunctionQuery");
 
 const router = express.Router();
@@ -43,6 +46,17 @@ router.get("/articles", async (req, res) => {
    }
 });
 
+router.get("/articles/:id", async (req, res) => {
+   try {
+      const articleId = req.params.id;
+      const article = await getArticleById(articleId);
+      res.json(article);
+   } catch (error) {
+      console.error("Erreur lors de la récupération des articles :", error);
+      res.status(500).json({ message: "Erreur serveur" });
+   }
+});
+
 router.post("/articles", upload.single("image"), async (req, res) => {
    try {
       const { name, description, price, category, stock } = req.body;
@@ -72,6 +86,36 @@ router.post("/articles", upload.single("image"), async (req, res) => {
       });
    } catch (error) {
       console.error("Erreur lors de l'ajout de l'article :", error);
+      res.status(500).json({ message: "Erreur serveur" });
+   }
+});
+
+router.delete("/articles/:id", async (req, res) => {
+   try {
+      const articleId = parseInt(req.params.id);
+
+      if (isNaN(articleId)) {
+         return res.status(400).json({ message: "ID invalide" });
+      }
+
+      const { deleteResult, imageUrl } = await deleteArticleById(articleId);
+
+      if (deleteResult.affectedRows === 0) {
+         return res.status(404).json({ message: "Article non trouvé" });
+      }
+
+      if (imageUrl) {
+         const imagePath = path.join(__dirname, "../public", imageUrl);
+         fs.unlink(imagePath, (err) => {
+            if (err) {
+               console.error("Erreur lors de la suppression de l'image:", err);
+            }
+         });
+      }
+
+      res.status(200).json({ message: "Article supprimé avec succès" });
+   } catch (error) {
+      console.error("Erreur lors de la suppression de l'article :", error);
       res.status(500).json({ message: "Erreur serveur" });
    }
 });

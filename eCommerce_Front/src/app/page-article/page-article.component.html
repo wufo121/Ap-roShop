@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<div class="pageArticle" *ngIf="article">
+  <div class="centerCardArticleByID">
+    <div class="cardArticleById">
+      <div class="leftSection">
+        <img
+          [src]="'http://localhost:3000' + article.imageUrl"
+          alt="{{ article.name }}"
+        />
+      </div>
+      <div class="rightSection">
+        <h1>{{ article.name }}</h1>
+        <p>{{ article.description }}</p>
+        <p>{{ article.price }} €</p>
+        <p>{{ article.rate }}(pas encore codé) /5</p>
+      </div>
+    </div>
+  </div>
+  <div class="centerReviewClient">
+    <div class="columnReview">
+      <h2>Avis client</h2>
+      <div class="reviewClient">
+        <div class="leftSection">
+          <div class="sectionStatNumberStar">
+            <h3>Note globale :</h3>
+            <h3>(a coder)/5</h3>
+
+            <p>5 étoiles : (pourcentage à coder)</p>
+            <p>4 étoiles : (pourcentage à coder)</p>
+            <p>3 étoiles : (pourcentage à coder)</p>
+            <p>2 étoiles : (pourcentage à coder)</p>
+            <p>1 étoiles : (pourcentage à coder)</p>
+          </div>
+        </div>
+
+        <div class="rightSection">(Commentary-card-component)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!article">Chargement des donées...</div>

@@ -7,13 +7,28 @@ function getAllArticles() {
             console.error("Erreur lors de la récupération des articles :", err);
             reject(err);
          } else {
-            // Correction des chemins relatifs d'images
             rows.forEach((row) => {
                if (row.imageUrl && !row.imageUrl.startsWith("/")) {
                   row.imageUrl = `/${row.imageUrl}`;
                }
             });
             resolve(rows);
+         }
+      });
+   });
+}
+
+function getArticleById(id) {
+   return new Promise((resolve, reject) => {
+      pool.query("SELECT * FROM Article WHERE id = ?", [id], (err, rows) => {
+         if (err) {
+            console.error(
+               "Erreur lors de la récupération des données de l'article sélectionné",
+               err
+            );
+            reject(err);
+         } else {
+            resolve(rows[0]);
          }
       });
    });
@@ -49,7 +64,38 @@ function saveArticle(articleData) {
    });
 }
 
+function deleteArticleById(articleId) {
+   return new Promise((resolve, reject) => {
+      pool.query(
+         "SELECT imageUrl FROM Article WHERE id = ?",
+         [articleId],
+         (err, result) => {
+            if (err) {
+               reject(err);
+               return;
+            }
+
+            const imageUrl = result[0]?.imageUrl;
+
+            pool.query(
+               "DELETE FROM Article WHERE id = ?",
+               [articleId],
+               (err, deleteResult) => {
+                  if (err) {
+                     reject(err);
+                  } else {
+                     resolve({ deleteResult, imageUrl });
+                  }
+               }
+            );
+         }
+      );
+   });
+}
+
 module.exports = {
    getAllArticles,
    saveArticle,
+   deleteArticleById,
+   getArticleById,
 };
