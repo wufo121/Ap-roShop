@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AppService } from '../app.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-card-article',
   standalone: true,
@@ -19,7 +20,7 @@ export class CardArticleComponent {
 
   stars: number[] = [];
 
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService, private router: Router) {}
 
   ngOnInit(): void {
     this.stars = new Array(5);
@@ -32,7 +33,8 @@ export class CardArticleComponent {
     return this.appService.isAdmin(this.user);
   }
 
-  deleteArticle() {
+  deleteArticle(event: MouseEvent) {
+    event.stopPropagation();
     this.appService.deleteArticleById(this.id).subscribe({
       next: (response) => {
         console.log('Article supprimé');
@@ -42,5 +44,9 @@ export class CardArticleComponent {
         console.error('Erreur lors de la supression');
       },
     });
+  }
+
+  redirectToPageArticle() {
+    this.router.navigate([`/pageArticle/${this.id}`]);
   }
 }

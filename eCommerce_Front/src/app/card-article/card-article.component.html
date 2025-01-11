@@ -1,6 +1,10 @@
-<div class="cardArticle">
+<div class="cardArticle" (click)="redirectToPageArticle()">
   <div class="cardContent">
-    <div *ngIf="isAdmin()" class="deleteSection" (click)="deleteArticle()">
+    <div
+      *ngIf="isAdmin()"
+      class="deleteSection"
+      (click)="deleteArticle($event)"
+    >
       <i class="fa-solid fa-trash"></i>
     </div>
     <h2>{{ name }}</h2>

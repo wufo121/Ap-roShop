@@ -6,6 +6,7 @@ const {
    getAllArticles,
    saveArticle,
    deleteArticleById,
+   getArticleById,
 } = require("../mysql/articleFunctionQuery");
 
 const router = express.Router();
@@ -39,6 +40,17 @@ router.get("/articles", async (req, res) => {
    try {
       const articles = await getAllArticles();
       res.json(articles);
+   } catch (error) {
+      console.error("Erreur lors de la récupération des articles :", error);
+      res.status(500).json({ message: "Erreur serveur" });
+   }
+});
+
+router.get("/articles/:id", async (req, res) => {
+   try {
+      const articleId = req.params.id;
+      const article = await getArticleById(articleId);
+      res.json(article);
    } catch (error) {
       console.error("Erreur lors de la récupération des articles :", error);
       res.status(500).json({ message: "Erreur serveur" });

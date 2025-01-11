@@ -13,11 +13,7 @@
         <h1>{{ article.name }}</h1>
         <p>{{ article.description }}</p>
         <p>{{ article.price }} €</p>
-        <<<<<<< HEAD
-        <p>{{ averageRating }}/5</p>
-        =======
         <p>{{ article.rate }}(pas encore codé) /5</p>
-        >>>>>>> 9d63a37 (Delete, pageArticle (#4))
       </div>
     </div>
   </div>
@@ -28,74 +24,17 @@
         <div class="leftSection">
           <div class="sectionStatNumberStar">
             <h3>Note globale :</h3>
-            <h3>{{ averageRating }}/5</h3>
+            <h3>(a coder)/5</h3>
 
-            <div class="starsPercentage">
-              <i
-                *ngFor="let star of [].constructor(5); let i = index"
-                class="fa"
-                [ngClass]="i < 5 ? 'fa-star filled' : 'fa-star'"
-              ></i>
-              <p>: {{ percentage?.[5] }}</p>
-            </div>
-
-            <div class="starsPercentage">
-              <i
-                *ngFor="let star of [].constructor(5); let i = index"
-                class="fa"
-                [ngClass]="i < 4 ? 'fa-star filled' : 'fa-star'"
-              ></i>
-              <p>: {{ percentage?.[4] }}</p>
-            </div>
-
-            <div class="starsPercentage">
-              <i
-                *ngFor="let star of [].constructor(5); let i = index"
-                class="fa"
-                [ngClass]="i < 3 ? ' fa-star filled' : 'fa-star'"
-              ></i>
-              <p>: {{ percentage?.[3] }}</p>
-            </div>
-
-            <div class="starsPercentage">
-              <i
-                *ngFor="let star of [].constructor(5); let i = index"
-                class="fa"
-                [ngClass]="i < 2 ? 'fa-star filled' : 'fa-star'"
-              ></i>
-              <p>: {{ percentage?.[2] }}</p>
-            </div>
-
-            <div class="starsPercentage">
-              <i
-                *ngFor="let star of [].constructor(5); let i = index"
-                class="fa"
-                [ngClass]="i < 1 ? 'fa-star filled' : 'fa-star'"
-              ></i>
-              <p>: {{ percentage?.[1] }}</p>
-            </div>
+            <p>5 étoiles : (pourcentage à coder)</p>
+            <p>4 étoiles : (pourcentage à coder)</p>
+            <p>3 étoiles : (pourcentage à coder)</p>
+            <p>2 étoiles : (pourcentage à coder)</p>
+            <p>1 étoiles : (pourcentage à coder)</p>
           </div>
         </div>
 
-        <div class="rightSection">
-          <div class="containerReviews">
-            <app-card-review
-              *ngFor="let review of reviews"
-              [review]="review"
-              class="card-review"
-            >
-            </app-card-review>
-            <button class="addReview" (click)="showFormReview = true">
-              Ajouter un avis
-            </button>
-            <app-review-form
-              *ngIf="showFormReview"
-              [articleId]="articleId!"
-              (submitReview)="addReview($event)"
-              (closeModal)="showFormReview = false"
-            ></app-review-form>
-          </div>
-        </div>
+        <div class="rightSection">(Commentary-card-component)</div>
       </div>
     </div>
   </div>

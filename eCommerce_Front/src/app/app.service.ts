@@ -1,18 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
-import {
-  Observable,
-  of,
-  catchError,
-  throwError,
-  map,
-  switchMap,
-  forkJoin,
-} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -36,14 +24,6 @@ export class AppService {
     return this.http.get(`api/articles/${id}`);
   }
 
-  getReviewsByArticleId(articleId: string): Observable<any[]> {
-    return this.http.get<any[]>(`api/articles/${articleId}/reviews`);
-  }
-
-  getRatingByArticleId(articleId: string): Observable<number[]> {
-    return this.http.get<number[]>(`api/articles/${articleId}/rating`);
-  }
-
   getCurrentUser(): Observable<any> {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('currentUser');
@@ -60,30 +40,6 @@ export class AppService {
 
   addArticle(formData: FormData): Observable<any> {
     return this.http.post('/api/articles', formData);
-  }
-
-  addReview(
-    articleId: string,
-    review: { rating: number; comment: string }
-  ): Observable<any> {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${localStorage.getItem('currentUser')}`
-    );
-    console.log('Review payload:', review);
-
-    return this.http
-      .post(`api/articles/${articleId}/reviews`, review, {
-        headers,
-      })
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          console.error('Error occurred:', error);
-          return throwError(
-            () => new Error('Something went wrong with adding the review.')
-          );
-        })
-      );
   }
 
   deleteArticleById(id: number): Observable<any> {
@@ -108,34 +64,5 @@ export class AppService {
       localStorage.removeItem('currentUser');
       location.reload();
     }
-  }
-
-  getRatingCounts(ratings: { rating: number }[]): { [key: number]: number } {
-    return ratings.reduce((counts, obj) => {
-      const rating = obj.rating;
-      counts[rating] = (counts[rating] || 0) + 1;
-      return counts;
-    }, {} as { [key: number]: number });
-  }
-
-  getRatingPercentages(ratings: { rating: number }[]): {
-    [key: number]: string;
-  } {
-    const total = ratings.length;
-    const counts = this.getRatingCounts(ratings);
-    const percentages: { [key: number]: string } = {};
-
-    for (let i = 1; i <= 5; i++) {
-      let percentage = total > 0 ? (counts[i] / total) * 100 : 0;
-      percentages[i] = isNaN(percentage) ? '0%' : percentage.toFixed(1) + '%';
-    }
-
-    return percentages;
-  }
-
-  getAverageRating(ratings: { rating: number }[]): number {
-    const total = ratings.reduce((sum, obj) => sum + obj.rating, 0);
-    const average = ratings.length > 0 ? total / ratings.length : 0;
-    return parseFloat(average.toFixed(1));
   }
 }

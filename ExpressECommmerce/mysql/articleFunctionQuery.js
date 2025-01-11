@@ -18,6 +18,22 @@ function getAllArticles() {
    });
 }
 
+function getArticleById(id) {
+   return new Promise((resolve, reject) => {
+      pool.query("SELECT * FROM Article WHERE id = ?", [id], (err, rows) => {
+         if (err) {
+            console.error(
+               "Erreur lors de la récupération des données de l'article sélectionné",
+               err
+            );
+            reject(err);
+         } else {
+            resolve(rows[0]);
+         }
+      });
+   });
+}
+
 function saveArticle(articleData) {
    return new Promise((resolve, reject) => {
       const query = `
@@ -81,4 +97,5 @@ module.exports = {
    getAllArticles,
    saveArticle,
    deleteArticleById,
+   getArticleById,
 };
