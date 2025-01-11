@@ -20,6 +20,10 @@ export class AppService {
     return this.http.get<any[]>('/api/articles');
   }
 
+  getArticleById(id: string): Observable<any> {
+    return this.http.get(`api/articles/${id}`);
+  }
+
   getCurrentUser(): Observable<any> {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('currentUser');
@@ -54,5 +58,11 @@ export class AppService {
       return user?.role === 'admin';
     }
     return false;
+  }
+  logout(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('currentUser');
+      location.reload();
+    }
   }
 }
