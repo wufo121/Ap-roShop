@@ -1,0 +1,19 @@
+<div class="card-review">
+  <div class="all-section">
+    <div class="top-section">
+      <div class="stars">
+        <i
+          *ngFor="let star of stars; let i = index"
+          class="fa-solid fa-star"
+          [ngClass]="{ filled: i < review.rating }"
+        >
+        </i>
+      </div>
+      <p>{{ review.username }}</p>
+    </div>
+    <div class="bottom-section">
+      <p class="comment">{{ review.comment }}</p>
+      <p class="date">{{ review.createdAt }}</p>
+    </div>
+  </div>
+</div>

@@ -34,7 +34,25 @@
           </div>
         </div>
 
-        <div class="rightSection">(Commentary-card-component)</div>
+        <div class="rightSection">
+          <div class="containerReviews">
+            <app-card-review
+              *ngFor="let review of reviews"
+              [review]="review"
+              class="card-review"
+            >
+            </app-card-review>
+            <button class="addReview" (click)="showFormReview = true">
+              Ajouter un avis
+            </button>
+            <app-review-form
+              *ngIf="showFormReview"
+              [articleId]="articleId!"
+              (submitReview)="addReview($event)"
+              (closeModal)="showFormReview = false"
+            ></app-review-form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

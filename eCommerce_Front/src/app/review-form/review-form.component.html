@@ -1,0 +1,66 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 class="TitleFormReview">Ajouter un avis</h2>
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+      <div class="rating-container">
+        <label>Note :</label>
+        <div class="stars">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <span
+              class="star"
+              [class.filled]="
+                star <= (hoveredRating || reviewForm.get('rating')?.value)
+              "
+              (mouseenter)="hoveredRating = star"
+              (mouseleave)="hoveredRating = 0"
+              (click)="setRating(star)"
+            >
+              <i class="fas fa-star"></i>
+            </span>
+          </ng-container>
+        </div>
+        <div
+          *ngIf="
+            reviewForm.get('rating')?.hasError('required') &&
+            reviewForm.get('rating')?.touched
+          "
+          class="error-message"
+        >
+          Veuillez donner une note
+        </div>
+      </div>
+
+      <div class="comment-container">
+        <label>Commentaire :</label>
+        <textarea
+          formControlName="comment"
+          rows="4"
+          placeholder="Votre avis..."
+        >
+        </textarea>
+        <div
+          *ngIf="
+            reviewForm.get('comment')?.hasError('required') &&
+            reviewForm.get('comment')?.touched
+          "
+          class="error-message"
+        >
+          Veuillez ajouter un commentaire
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button type="button" class="cancel-button" (click)="cancel()">
+          Annuler
+        </button>
+        <button
+          type="submit"
+          class="submit-button"
+          [disabled]="reviewForm.invalid"
+        >
+          Envoyer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
