@@ -13,11 +13,7 @@
         <h1>{{ article.name }}</h1>
         <p>{{ article.description }}</p>
         <p>{{ article.price }} €</p>
-        <<<<<<< HEAD
         <p>{{ averageRating }}/5</p>
-        =======
-        <p>{{ article.rate }}(pas encore codé) /5</p>
-        >>>>>>> 9d63a37 (Delete, pageArticle (#4))
       </div>
     </div>
   </div>
@@ -36,7 +32,7 @@
                 class="fa"
                 [ngClass]="i < 5 ? 'fa-star filled' : 'fa-star'"
               ></i>
-              <p>: {{ percentage[5] }}</p>
+              <p>: {{ percentage?.[5] }}</p>
             </div>
 
             <div class="starsPercentage">
@@ -45,7 +41,7 @@
                 class="fa"
                 [ngClass]="i < 4 ? 'fa-star filled' : 'fa-star'"
               ></i>
-              <p>: {{ percentage[4] }}</p>
+              <p>: {{ percentage?.[4] }}</p>
             </div>
 
             <div class="starsPercentage">
@@ -54,7 +50,7 @@
                 class="fa"
                 [ngClass]="i < 3 ? ' fa-star filled' : 'fa-star'"
               ></i>
-              <p>: {{ percentage[3] }}</p>
+              <p>: {{ percentage?.[3] }}</p>
             </div>
 
             <div class="starsPercentage">
@@ -63,7 +59,7 @@
                 class="fa"
                 [ngClass]="i < 2 ? 'fa-star filled' : 'fa-star'"
               ></i>
-              <p>: {{ percentage[2] }}</p>
+              <p>: {{ percentage?.[2] }}</p>
             </div>
 
             <div class="starsPercentage">
@@ -72,7 +68,7 @@
                 class="fa"
                 [ngClass]="i < 1 ? 'fa-star filled' : 'fa-star'"
               ></i>
-              <p>: {{ percentage[1] }}</p>
+              <p>: {{ percentage?.[1] }}</p>
             </div>
           </div>
         </div>

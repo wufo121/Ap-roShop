@@ -127,14 +127,15 @@ export class AppService {
 
     for (let i = 1; i <= 5; i++) {
       let percentage = total > 0 ? (counts[i] / total) * 100 : 0;
-      percentages[i] = isNaN(percentage) ? '0%' : percentage.toFixed(2) + '%';
+      percentages[i] = isNaN(percentage) ? '0%' : percentage.toFixed(1) + '%';
     }
-    console.log('test', percentages);
+
     return percentages;
   }
 
   getAverageRating(ratings: { rating: number }[]): number {
     const total = ratings.reduce((sum, obj) => sum + obj.rating, 0);
-    return ratings.length > 0 ? total / ratings.length : 0;
+    const average = ratings.length > 0 ? total / ratings.length : 0;
+    return parseFloat(average.toFixed(1));
   }
 }
