@@ -28,8 +28,35 @@ export class HomeComponent implements OnInit {
           this.user = data.user;
         },
       });
-      this.appService.getArticles().subscribe((data) => {
-        this.articles = data;
+
+      this.appService.getArticles().subscribe((articles) => {
+        this.articles = articles;
+
+        this.articles.forEach((article) => {
+          this.appService.getRatingByArticleId(article.id).subscribe({
+            next: (response: any) => {
+              if (response && response.data && Array.isArray(response.data)) {
+                const averageRating = this.appService.getAverageRating(
+                  response.data
+                );
+                article.rating = Math.round(averageRating);
+              } else {
+                console.error(
+                  `Réponse inattendue pour l'article ${article.id}:`,
+                  response
+                );
+                article.rating = 0;
+              }
+            },
+            error: (err) => {
+              console.error(
+                `Erreur lors de la récupération de la notation pour l'article ${article.id}`,
+                err
+              );
+              article.rating = 0;
+            },
+          });
+        });
       });
     }
   }

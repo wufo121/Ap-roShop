@@ -13,7 +13,7 @@
         <h1>{{ article.name }}</h1>
         <p>{{ article.description }}</p>
         <p>{{ article.price }} €</p>
-        <p>{{ article.rate }}(pas encore codé) /5</p>
+        <p>{{ averageRating }}/5</p>
       </div>
     </div>
   </div>
@@ -24,13 +24,52 @@
         <div class="leftSection">
           <div class="sectionStatNumberStar">
             <h3>Note globale :</h3>
-            <h3>(a coder)/5</h3>
+            <h3>{{ averageRating }}/5</h3>
 
-            <p>5 étoiles : (pourcentage à coder)</p>
-            <p>4 étoiles : (pourcentage à coder)</p>
-            <p>3 étoiles : (pourcentage à coder)</p>
-            <p>2 étoiles : (pourcentage à coder)</p>
-            <p>1 étoiles : (pourcentage à coder)</p>
+            <div class="starsPercentage">
+              <i
+                *ngFor="let star of [].constructor(5); let i = index"
+                class="fa"
+                [ngClass]="i < 5 ? 'fa-star filled' : 'fa-star'"
+              ></i>
+              <p>: {{ percentage[5] }}</p>
+            </div>
+
+            <div class="starsPercentage">
+              <i
+                *ngFor="let star of [].constructor(5); let i = index"
+                class="fa"
+                [ngClass]="i < 4 ? 'fa-star filled' : 'fa-star'"
+              ></i>
+              <p>: {{ percentage[4] }}</p>
+            </div>
+
+            <div class="starsPercentage">
+              <i
+                *ngFor="let star of [].constructor(5); let i = index"
+                class="fa"
+                [ngClass]="i < 3 ? ' fa-star filled' : 'fa-star'"
+              ></i>
+              <p>: {{ percentage[3] }}</p>
+            </div>
+
+            <div class="starsPercentage">
+              <i
+                *ngFor="let star of [].constructor(5); let i = index"
+                class="fa"
+                [ngClass]="i < 2 ? 'fa-star filled' : 'fa-star'"
+              ></i>
+              <p>: {{ percentage[2] }}</p>
+            </div>
+
+            <div class="starsPercentage">
+              <i
+                *ngFor="let star of [].constructor(5); let i = index"
+                class="fa"
+                [ngClass]="i < 1 ? 'fa-star filled' : 'fa-star'"
+              ></i>
+              <p>: {{ percentage[1] }}</p>
+            </div>
           </div>
         </div>
 
