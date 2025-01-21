@@ -4,7 +4,15 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Observable, of, catchError, throwError } from 'rxjs';
+import {
+  Observable,
+  of,
+  catchError,
+  throwError,
+  map,
+  switchMap,
+  forkJoin,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +38,10 @@ export class AppService {
 
   getReviewsByArticleId(articleId: string): Observable<any[]> {
     return this.http.get<any[]>(`api/articles/${articleId}/reviews`);
+  }
+
+  getRatingByArticleId(articleId: string): Observable<number[]> {
+    return this.http.get<number[]>(`api/articles/${articleId}/rating`);
   }
 
   getCurrentUser(): Observable<any> {
@@ -96,5 +108,33 @@ export class AppService {
       localStorage.removeItem('currentUser');
       location.reload();
     }
+  }
+
+  getRatingCounts(ratings: { rating: number }[]): { [key: number]: number } {
+    return ratings.reduce((counts, obj) => {
+      const rating = obj.rating;
+      counts[rating] = (counts[rating] || 0) + 1;
+      return counts;
+    }, {} as { [key: number]: number });
+  }
+
+  getRatingPercentages(ratings: { rating: number }[]): {
+    [key: number]: string;
+  } {
+    const total = ratings.length;
+    const counts = this.getRatingCounts(ratings);
+    const percentages: { [key: number]: string } = {};
+
+    for (let i = 1; i <= 5; i++) {
+      let percentage = total > 0 ? (counts[i] / total) * 100 : 0;
+      percentages[i] = isNaN(percentage) ? '0%' : percentage.toFixed(2) + '%';
+    }
+    console.log('test', percentages);
+    return percentages;
+  }
+
+  getAverageRating(ratings: { rating: number }[]): number {
+    const total = ratings.reduce((sum, obj) => sum + obj.rating, 0);
+    return ratings.length > 0 ? total / ratings.length : 0;
   }
 }

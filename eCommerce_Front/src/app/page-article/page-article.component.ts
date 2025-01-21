@@ -23,7 +23,10 @@ export class PageArticleComponent implements OnInit {
   articleId: string | null = null;
   article: any = null;
   reviews: any[] = [];
+  ratings: any;
   showFormReview = false;
+  percentage: any | undefined = undefined;
+  averageRating: number | null = null;
 
   constructor(private route: ActivatedRoute, private appService: AppService) {}
 
@@ -33,7 +36,23 @@ export class PageArticleComponent implements OnInit {
     if (this.articleId) {
       this.fetchArticle();
       this.fetchReviews();
+      this.fetchRating();
     }
+  }
+
+  fetchRating(): void {
+    this.appService.getRatingByArticleId(this.articleId!).subscribe({
+      next: (response: any) => {
+        this.ratings = response.data;
+        console.log('Rating reçues', this.ratings);
+        this.getRatingPourcentage();
+        this.getAverageRating();
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des notes:', err);
+        this.ratings = [];
+      },
+    });
   }
 
   fetchArticle(): void {
@@ -65,5 +84,13 @@ export class PageArticleComponent implements OnInit {
     this.reviews = [...this.reviews, newReviews];
     this.showFormReview = false;
     this.fetchReviews();
+  }
+
+  getRatingPourcentage() {
+    this.percentage = this.appService.getRatingPercentages(this.ratings);
+  }
+
+  getAverageRating() {
+    this.averageRating = this.appService.getAverageRating(this.ratings);
   }
 }

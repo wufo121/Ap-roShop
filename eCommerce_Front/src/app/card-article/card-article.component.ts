@@ -22,13 +22,6 @@ export class CardArticleComponent {
 
   constructor(private appService: AppService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.stars = new Array(5);
-  }
-  isLoggedIn(): boolean {
-    return this.appService.isLoggedIn();
-  }
-
   isAdmin(): boolean {
     return this.appService.isAdmin(this.user);
   }

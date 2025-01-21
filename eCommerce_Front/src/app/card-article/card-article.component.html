@@ -13,11 +13,10 @@
       <p>Prix : {{ price }} €</p>
       <div class="stars">
         <i
-          *ngFor="let star of stars; let i = index"
-          class="fa-solid fa-star"
+          *ngFor="let star of [0, 1, 2, 3, 4]; let i = index"
+          class="fa fa-star"
           [ngClass]="{ filled: i < rating }"
-        >
-        </i>
+        ></i>
       </div>
     </div>
     <i class="fa-solid fa-cart-shopping"></i>

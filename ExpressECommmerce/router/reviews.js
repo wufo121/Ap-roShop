@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { getReviews, addReviews } = require("../mysql/reviewsFunction");
+const {
+   getReviews,
+   addReviews,
+   getNoteReviews,
+} = require("../mysql/reviewsFunction");
 const authentificateToken = require("../middleware/middleware");
 
 router.get("/articles/:articleId/reviews", async (req, res) => {
@@ -9,6 +13,16 @@ router.get("/articles/:articleId/reviews", async (req, res) => {
       res.json({ sucess: true, data: reviews });
    } catch (error) {
       console.error("Erreur lors de la récupérations des avis", error);
+      res.status(500).json({ sucess: false, message: "Erreur" });
+   }
+});
+
+router.get("/articles/:articleId/rating", async (req, res) => {
+   try {
+      const rating = await getNoteReviews(req.params.articleId);
+      res.json({ success: true, data: rating });
+   } catch (error) {
+      console.error("Erreur lors de la récupérations des notes", error);
       res.status(500).json({ sucess: false, message: "Erreur" });
    }
 });
