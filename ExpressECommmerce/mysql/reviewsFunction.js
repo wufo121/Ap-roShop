@@ -42,24 +42,7 @@ function addReviews(productId, userId, rating, comment) {
    });
 }
 
-function getNoteReviews(articleId) {
-   return new Promise((resolve, reject) => {
-      const query = `
-      SELECT rating FROM Reviews
-      WHERE Reviews.productId = ?
-      `;
-      pool.query(query, [articleId], (error, results) => {
-         if (error) {
-            reject(error);
-            return;
-         }
-         resolve(results);
-      });
-   });
-}
-
 module.exports = {
    getReviews,
    addReviews,
-   getNoteReviews,
 };
