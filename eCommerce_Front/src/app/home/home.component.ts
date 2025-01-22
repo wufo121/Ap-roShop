@@ -5,11 +5,17 @@ import { CardArticleComponent } from '../card-article/card-article.component';
 import { ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, CardArticleComponent, HeaderComponent],
+  imports: [
+    CommonModule,
+    CardArticleComponent,
+    HeaderComponent,
+    NgxPaginationModule,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -18,6 +24,8 @@ export class HomeComponent implements OnInit {
   public appService = inject(AppService);
   articles: any[] = [];
   user: any = null;
+  itemsPerPage = 6;
+  currentPage = 1;
 
   constructor(private router: Router) {}
 

@@ -9,13 +9,14 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [],
   imports: [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   exports: [],
   providers: [provideHttpClient(), provideClientHydration()],

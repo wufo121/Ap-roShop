@@ -13,7 +13,7 @@
     </div>
     <div class="bottom-section">
       <p class="comment">{{ review.comment }}</p>
-      <p class="date">{{ review.createdAt }}</p>
+      <p class="date">{{ review.createdAt | date : "dd/MM/yyyy" }}</p>
     </div>
   </div>
 </div>

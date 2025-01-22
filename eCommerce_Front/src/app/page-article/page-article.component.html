@@ -76,11 +76,17 @@
         <div class="rightSection">
           <div class="containerReviews">
             <app-card-review
-              *ngFor="let review of reviews"
+              *ngFor="
+                let review of reviews
+                  | paginate : { itemsPerPage: itemsPerPage, currentPage }
+              "
               [review]="review"
               class="card-review"
             >
             </app-card-review>
+            <pagination-controls
+              (pageChange)="currentPage = $event"
+            ></pagination-controls>
             <button class="addReview" (click)="showFormReview = true">
               Ajouter un avis
             </button>

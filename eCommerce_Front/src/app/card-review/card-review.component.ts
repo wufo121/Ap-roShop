@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { AppService } from '../app.service';
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass, NgFor, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-card-review',
   standalone: true,
-  imports: [NgClass, NgFor],
+  imports: [NgClass, NgFor, DatePipe],
   templateUrl: './card-review.component.html',
   styleUrl: './card-review.component.scss',
 })

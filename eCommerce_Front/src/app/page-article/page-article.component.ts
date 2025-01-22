@@ -6,13 +6,14 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { CardReviewComponent } from '../card-review/card-review.component';
 import { ReviewFormComponent } from '../review-form/review-form.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-page-article',
   standalone: true,
   imports: [
     CommonModule,
     HeaderComponent,
-
+    NgxPaginationModule,
     CardReviewComponent,
     ReviewFormComponent,
   ],
@@ -27,6 +28,8 @@ export class PageArticleComponent implements OnInit {
   showFormReview = false;
   percentage: any | undefined = undefined;
   averageRating: number | null = null;
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
 
   constructor(private route: ActivatedRoute, private appService: AppService) {}
 
