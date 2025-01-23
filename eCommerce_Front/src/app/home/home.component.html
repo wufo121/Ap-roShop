@@ -41,20 +41,6 @@
       (articleDeleted)="handleArticleDeletion($event)"
     >
     </app-card-article>
-    <app-card-article
-      *ngFor="
-        let article of articles
-          | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage }
-      "
-      [name]="article.name"
-      [src]="'http://localhost:3000' + article.imageUrl"
-      [price]="article.price"
-      [rating]="article.rating"
-      [id]="article.id"
-      [user]="user"
-      (articleDeleted)="handleArticleDeletion($event)"
-    >
-    </app-card-article>
   </section>
   <pagination-controls
     (pageChange)="currentPage = $event"

@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   public appService = inject(AppService);
   articles: any[] = [];
   user: any = null;
-  itemsPerPage = 6;
+  itemsPerPage = 12;
   currentPage = 1;
 
   constructor(private router: Router) {}
