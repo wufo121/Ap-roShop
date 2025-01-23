@@ -6,6 +6,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CardArticleComponent,
     HeaderComponent,
     NgxPaginationModule,
+    FormsModule,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -26,6 +28,8 @@ export class HomeComponent implements OnInit {
   user: any = null;
   itemsPerPage = 12;
   currentPage = 1;
+  searchTerms: string = '';
+  filtredArticles: any[] = this.articles;
 
   constructor(private router: Router) {}
 
@@ -39,6 +43,7 @@ export class HomeComponent implements OnInit {
 
       this.appService.getArticles().subscribe((articles) => {
         this.articles = articles;
+        this.filtredArticles = [...this.articles];
 
         this.articles.forEach((article) => {
           this.appService.getRatingByArticleId(article.id).subscribe({
@@ -80,6 +85,16 @@ export class HomeComponent implements OnInit {
 
   handleArticleDeletion(articleId: number) {
     this.articles = this.articles.filter((article) => article.id !== articleId);
+  }
+
+  onSearch() {
+    if (this.searchTerms.trim() === '') {
+      this.filtredArticles = this.articles;
+    } else {
+      this.filtredArticles = this.articles.filter((article) =>
+        article.name.toLowerCase().includes(this.searchTerms.toLowerCase())
+      );
+    }
   }
 
   redirectToAddArticle() {

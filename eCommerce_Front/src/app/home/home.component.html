@@ -3,7 +3,13 @@
 <!-- my top search input -->
 
 <div class="inputSection">
-  <input type="text" class="searchField" placeholder="Rechercher.." />
+  <input
+    type="text"
+    class="searchField"
+    placeholder="Rechercher.."
+    [(ngModel)]="searchTerms"
+    (ngModelChange)="onSearch()"
+  />
 </div>
 
 <!-- Add one article when Admin -->
@@ -29,7 +35,7 @@
   <section class="cardGrid">
     <app-card-article
       *ngFor="
-        let article of articles
+        let article of filtredArticles
           | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage }
       "
       [name]="article.name"
