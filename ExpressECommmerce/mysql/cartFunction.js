@@ -1,56 +1,57 @@
 const pool = require("./pool");
 
 function addToCart(userId, productId, quantity) {
+   return getOrCreateCart(userId)
+      .then((cartId) => addOrUpdateProduct(cartId, productId, quantity))
+      .catch((error) => {
+         throw error;
+      });
+}
+
+function getOrCreateCart(userId) {
    return new Promise((resolve, reject) => {
       const cartQuery = "SELECT id FROM Cart WHERE userId = ?";
-      pool.query(cartQuery, [userId], (cartError, cartResults) => {
-         if (cartError) {
-            return reject(cartError);
-         }
-         let cartId;
-         if (cartResults.length === 0) {
+      pool.query(cartQuery, [userId], (error, results) => {
+         if (error) return reject(error);
+
+         if (results.length === 0) {
             const createCartQuery =
                "INSERT INTO Cart (userId, createdAt, updatedAt) VALUES (?, NOW(), NOW())";
             pool.query(
                createCartQuery,
                [userId],
-               (createCartError, createCartResults) => {
-                  if (createCartError) {
-                     return reject(createCartError);
-                  }
-                  cartId = createCartResults.insertId;
-
-                  addProductToCart(cartId);
+               (createError, createResults) => {
+                  if (createError) return reject(createError);
+                  resolve(createResults.insertId);
                }
             );
          } else {
-            cartId = cartResults[0].id;
-            addProductToCart(cartId);
-         }
-
-         function addProductToCart(cartId) {
-            const query = `
-            INSERT INTO Cart_items (cartId, productId, quantity, price)
-            SELECT ?, ?, ?, article.price * ?
-            FROM Article article
-            WHERE article.id = ?
-            ON DUPLICATE KEY UPDATE 
-              quantity = Cart_items.quantity + VALUES(quantity),
-              price = Cart_items.quantity * article.price
-          `;
-
-            pool.query(
-               query,
-               [cartId, productId, quantity, quantity, productId],
-               (error, results) => {
-                  if (error) {
-                     return reject(error);
-                  }
-                  resolve({ id: results.insertId, productId, quantity });
-               }
-            );
+            resolve(results[0].id);
          }
       });
+   });
+}
+
+function addOrUpdateProduct(cartId, productId, quantity) {
+   return new Promise((resolve, reject) => {
+      const query = `
+      INSERT INTO Cart_items (cartId, productId, quantity, price)
+      SELECT ?, ?, ?, article.price * ?
+      FROM Article article
+      WHERE article.id = ?
+      ON DUPLICATE KEY UPDATE 
+         quantity = Cart_items.quantity + VALUES(quantity),
+         price = Cart_items.quantity * article.price;
+      `;
+
+      pool.query(
+         query,
+         [cartId, productId, quantity, quantity, productId],
+         (error, results) => {
+            if (error) return reject(error);
+            resolve({ id: results.insertId, productId, quantity });
+         }
+      );
    });
 }
 
