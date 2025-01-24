@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-card-cart',
@@ -12,4 +13,12 @@ export class CardCartComponent {
   @Input() quantity: number = 0;
   @Input() image: string = '';
   @Input() price: number = 0;
+  @Input() productId: string = '';
+
+  constructor(private appService: AppService) {}
+
+  deleteFromCart(event: MouseEvent): void {
+    event.stopPropagation();
+    this.appService.deleteAndRemoveFromCart(this.productId);
+  }
 }

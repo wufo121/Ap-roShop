@@ -81,7 +81,25 @@ function getCartArticleByUser(userId) {
    });
 }
 
+function removeFromCart(userId, productId) {
+   return new Promise((resolve, reject) => {
+      const query = `
+      DELETE Cart_items
+      FROM Cart_items
+      INNER JOIN Cart ON Cart_items.cartId = Cart.id
+      WHERE Cart.userId = ? AND Cart_items.productId = ?;`;
+
+      pool.query(query, [userId, productId], (error, results) => {
+         if (error) {
+            return reject(error);
+         }
+         resolve({ message: "Article supprimé du panier avec succès." });
+      });
+   });
+}
+
 module.exports = {
    addToCart,
    getCartArticleByUser,
+   removeFromCart,
 };

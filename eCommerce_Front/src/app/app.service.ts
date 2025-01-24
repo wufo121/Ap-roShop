@@ -118,6 +118,39 @@ export class AppService {
       },
     });
   }
+  deleteAndRemoveFromCart(productId: string): void {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${localStorage.getItem('currentUser')}`
+    );
+
+    this.http
+      .delete(`api/cart/${productId}`, { headers })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Erreur lors de la suppression du produit :', error);
+          return throwError(
+            () =>
+              new Error(
+                'Une erreur est survenue lors de la suppression du produit.'
+              )
+          );
+        })
+      )
+      .subscribe({
+        next: () => {
+          const updatedCart = this.cartListSubject.value.filter(
+            (item) => item.productId !== productId
+          );
+          this.cartListSubject.next(updatedCart);
+
+          console.log('Produit supprimé avec succès du panier');
+        },
+        error: (err) => {
+          console.error("Erreur lors de la suppression de l'article :", err);
+        },
+      });
+  }
 
   isLoggedIn(): boolean {
     if (typeof window !== 'undefined') {

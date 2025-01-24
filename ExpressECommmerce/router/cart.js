@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { addToCart, getCartArticleByUser } = require("../mysql/cartFunction");
+const {
+   addToCart,
+   getCartArticleByUser,
+   removeFromCart,
+} = require("../mysql/cartFunction");
 const authentificateToken = require("../middleware/middleware");
 
 router.post("/cart", authentificateToken, async (req, res) => {
@@ -44,6 +48,36 @@ router.get("/cart", authentificateToken, async (req, res) => {
       res.status(500).json({
          success: false,
          message: "Erreur lors de la récupération du panier",
+      });
+   }
+});
+
+router.delete("/cart/:productId", authentificateToken, async (req, res) => {
+   const userId = req.user.id;
+   const { productId } = req.params;
+
+   if (!productId) {
+      return res.status(400).json({
+         success: false,
+         message: "L'identifiant du produit est manquant",
+      });
+   }
+
+   try {
+      const result = await removeFromCart(userId, productId);
+      res.json({
+         success: true,
+         message: "Article supprimé du panier avec succès",
+         data: result,
+      });
+   } catch (error) {
+      console.error(
+         "Erreur lors de la suppression de l'article du panier",
+         error
+      );
+      res.status(500).json({
+         success: false,
+         message: "Erreur lors de la suppression de l'article du panier",
       });
    }
 });
