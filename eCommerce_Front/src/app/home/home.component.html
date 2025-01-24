@@ -25,7 +25,17 @@
 
 <div class="ShoppingCartSection">
   <div class="DropDown" (click)="toggleDropDown($event)">
-    <div class="DropDownContent"></div>
+    <div class="DropDownContent">
+      <app-card-cart
+        *ngFor="let articleCart of cartList"
+        class="cartArticle"
+        [name]="articleCart.productName"
+        [quantity]="articleCart.quantity"
+        [image]="'http://localhost:3000' + articleCart.imageUrl"
+        [price]="articleCart.price"
+      >
+      </app-card-cart>
+    </div>
   </div>
 </div>
 

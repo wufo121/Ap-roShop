@@ -4,20 +4,14 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import {
-  Observable,
-  of,
-  catchError,
-  throwError,
-  map,
-  switchMap,
-  forkJoin,
-} from 'rxjs';
+import { Observable, of, catchError, throwError, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
+  private cartListSubject = new BehaviorSubject<any[]>([]);
+  cartList$ = this.cartListSubject.asObservable();
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
@@ -70,7 +64,6 @@ export class AppService {
       'Authorization',
       `Bearer ${localStorage.getItem('currentUser')}`
     );
-    console.log('Review payload:', review);
 
     return this.http
       .post(`api/articles/${articleId}/reviews`, review, {
@@ -86,8 +79,44 @@ export class AppService {
       );
   }
 
+  addToCart(productId: string, quantity: number): Observable<any> {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${localStorage.getItem('currentUser')}`
+    );
+
+    return this.http
+      .post('api/cart', { productId, quantity }, { headers })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error occurred:', error);
+          return throwError(
+            () => new Error('Something went wrong with adding the review.')
+          );
+        })
+      );
+  }
+
   deleteArticleById(id: number): Observable<any> {
     return this.http.delete(`/api/articles/${id}`);
+  }
+
+  getCartList(): Observable<any> {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${localStorage.getItem('currentUser')}`
+    );
+    return this.http.get('api/cart', { headers });
+  }
+  updateCartList(): void {
+    this.getCartList().subscribe({
+      next: (response) => {
+        this.cartListSubject.next(response.data);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la mise à jour du panier :', err);
+      },
+    });
   }
 
   isLoggedIn(): boolean {

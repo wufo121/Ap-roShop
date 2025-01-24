@@ -39,6 +39,24 @@ export class CardArticleComponent {
     });
   }
 
+  addToCart(event: MouseEvent) {
+    event.stopPropagation();
+    const quantity = 1;
+
+    this.appService.addToCart(this.id.toString(), quantity).subscribe({
+      next: (response) => {
+        console.log('Produit ajouté dans le panier avec succès', response);
+        this.appService.updateCartList();
+      },
+      error: (err) => {
+        console.error(
+          "Erreur lors de l'ajout de l'article dans le panier",
+          err
+        );
+      },
+    });
+  }
+
   redirectToPageArticle() {
     this.router.navigate([`/pageArticle/${this.id}`]);
   }

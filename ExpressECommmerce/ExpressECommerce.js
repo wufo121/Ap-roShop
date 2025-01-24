@@ -8,6 +8,7 @@ const login = require("./router/login");
 const me = require("./router/me");
 const register = require("./router/register");
 const reviews = require("./router/reviews");
+const cart = require("./router/cart");
 
 dotenv.config();
 
@@ -37,6 +38,8 @@ app.use("/api", me);
 app.use("/api", register);
 
 app.use("/api", reviews);
+
+app.use("/api", cart);
 
 app.listen(port, () => {
    console.log(`Serveur en cours d'exécution sur le port ${port}`);

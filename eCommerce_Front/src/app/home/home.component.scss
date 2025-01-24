@@ -67,16 +67,18 @@
     cursor: pointer;
 
     .DropDownContent {
+      padding-top: 2em;
       position: relative;
       z-index: -1;
       border-radius: 20px;
       height: 2.5em;
-      overflow: hidden;
       background-color: rgb(252, 222, 179);
       transition: height 0.3s ease-out;
+      overflow: hidden;
 
       &.active {
         height: 60vh;
+        overflow-y: scroll;
       }
     }
   }
