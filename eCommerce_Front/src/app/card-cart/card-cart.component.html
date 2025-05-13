@@ -1,14 +1,22 @@
 <div class="card-cart">
   <div class="card-cart-content">
     <div class="leftSection">
+      <p>{{ quantity }}x</p>
       <img [src]="image" alt="{{ name }}" />
     </div>
     <div class="rightSection">
-      <p>{{ quantity }}x</p>
-      <p>{{ name }}</p>
+      <div class="columnSection">
+        <div class="topRightSection">
+          <p>{{ name }}</p>
+        </div>
+        <div class="bottomRightSection">
+          <p>prix : {{ price }}€</p>
+        </div>
 
-      <p>{{ price }}€</p>
-      <button (click)="deleteFromCart($event)">x</button>
+        <button (click)="deleteFromCart($event)">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

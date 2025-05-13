@@ -14,9 +14,9 @@ export class CardArticleComponent {
   @Input() src: string = '';
   @Input() price: number = 0;
   @Input() rating: number = 0;
-  @Input() id: number = 0;
+  @Input() id: string = '';
   @Input() user: any = null;
-  @Output() articleDeleted = new EventEmitter<number>();
+  @Output() articleDeleted = new EventEmitter<string>();
 
   stars: number[] = [];
 
@@ -28,22 +28,14 @@ export class CardArticleComponent {
 
   deleteArticle(event: MouseEvent) {
     event.stopPropagation();
-    this.appService.deleteArticleById(this.id).subscribe({
-      next: (response) => {
-        console.log('Article supprimé');
-        this.articleDeleted.emit(this.id);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la supression');
-      },
-    });
+    this.articleDeleted.emit(this.id);
   }
 
   addToCart(event: MouseEvent) {
     event.stopPropagation();
     const quantity = 1;
 
-    this.appService.addToCart(this.id.toString(), quantity).subscribe({
+    this.appService.addToCart(this.id, quantity).subscribe({
       next: (response) => {
         console.log('Produit ajouté dans le panier avec succès', response);
         this.appService.updateCartList();

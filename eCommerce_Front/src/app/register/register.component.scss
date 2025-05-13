@@ -1,9 +1,9 @@
 h1 {
-  height: 30vh;
+  height: 15vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4em;
+  font-size: 3em;
   color: rgb(148, 25, 33);
 }
 
@@ -24,11 +24,39 @@ h1 {
         display: flex;
         flex-direction: column;
         label {
-          font-size: 2em;
+          font-size: 1em;
         }
         input {
           padding: 1em;
-          font-size: 1.5em;
+          font-size: 1em;
+        }
+
+        &.terms-checkbox {
+          flex-direction: row;
+          align-items: center;
+          gap: 1em;
+          margin-top: 1em;
+
+          input[type="checkbox"] {
+            width: 2em;
+            height: 2em;
+            min-width: 2em;
+            min-height: 2em;
+          }
+
+          label {
+            font-size: 1.5em;
+
+            a {
+              color: #1481a6;
+              text-decoration: underline;
+              cursor: pointer;
+
+              &:hover {
+                color: darken(#1481a6, 10%);
+              }
+            }
+          }
         }
       }
     }
@@ -41,17 +69,30 @@ h1 {
       cursor: pointer;
       width: 100%;
       border-radius: 40px;
-
       margin-top: 1em;
-    }
-    button:disabled {
-      background-color: #aaa;
-    }
-    button.btn-error {
-      background-color: red;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken(#1481a6, 10%);
+      }
+
+      &:disabled {
+        background-color: #aaa;
+        cursor: not-allowed;
+      }
+
+      &.btn-error {
+        background-color: red;
+        animation: shake 0.5s;
+
+        &:hover {
+          background-color: darken(red, 10%);
+        }
+      }
     }
   }
 }
+
 .seConnecter {
   margin-top: 1.5em;
   display: flex;
@@ -59,4 +100,108 @@ h1 {
   justify-content: center;
   font-size: 1.5em;
   cursor: pointer;
+  color: #1481a6;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: darken(#1481a6, 10%);
+  }
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  &.show {
+    display: block;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 2em;
+    border: 1px solid #888;
+    width: 70%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+
+    .close {
+      color: #aaa;
+      position: absolute;
+      right: 1em;
+      top: 0.5em;
+      font-size: 2.5em;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        color: #000;
+      }
+    }
+
+    h2 {
+      color: rgb(148, 25, 33);
+      font-size: 2.5em;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+
+    .terms-content {
+      font-size: 1.2em;
+      line-height: 1.6;
+
+      h3,
+      h2 {
+        margin-bottom: 1em;
+
+        h2 {
+          font-weight: bold;
+        }
+      }
+    }
+
+    button {
+      display: block;
+      margin: 2em auto 0;
+      padding: 0.8em 2em;
+      font-size: 1.2em;
+      background-color: #1481a6;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(#1481a6, 10%);
+      }
+    }
+  }
+}
+
+/* Animation for error button */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
 }

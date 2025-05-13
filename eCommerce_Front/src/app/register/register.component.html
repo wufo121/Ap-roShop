@@ -1,9 +1,20 @@
-<h1>Authentification</h1>
+<h1>Inscription</h1>
 <div class="formSection">
-  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
     <ul>
       <li>
-        <label for="mail">Email</label>
+        <label for="username">Nom d'utilisateur</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="Votre nom d'utilisateur"
+          name="username"
+          [(ngModel)]="username"
+          required
+        />
+      </li>
+      <li>
+        <label for="mail">E-mail</label>
         <input
           type="email"
           id="mail"
@@ -14,7 +25,18 @@
         />
       </li>
       <li>
-        <label for="password">Password</label>
+        <label for="address">Adresse</label>
+        <input
+          type="text"
+          id="address"
+          placeholder="Votre adresse complète"
+          name="address"
+          [(ngModel)]="address"
+          required
+        />
+      </li>
+      <li>
+        <label for="password">Mot de passe</label>
         <input
           type="password"
           id="password"
@@ -25,7 +47,7 @@
         />
       </li>
       <li>
-        <label for="passwordConfirmation">Password verification</label>
+        <label for="passwordConfirmation">Vérification du mot de passe</label>
         <input
           type="password"
           id="passwordConfirmation"
@@ -35,16 +57,154 @@
           required
         />
       </li>
+      <li class="terms-checkbox">
+        <input
+          type="checkbox"
+          id="acceptTerms"
+          name="acceptTerms"
+          [(ngModel)]="acceptTerms"
+          required
+        />
+        <label for="acceptTerms"
+          >J'accepte les
+          <a href="#" (click)="showTerms($event)"
+            >Conditions Générales d'Utilisation</a
+          ></label
+        >
+      </li>
     </ul>
     <button
       type="submit"
-      [disabled]="!loginForm.valid"
+      [disabled]="!registerForm.valid"
       [ngClass]="{ 'btn-error': isButtonRed }"
     >
-      Crer un Compte
+      Créer un compte
     </button>
   </form>
 </div>
 <a (click)="redirectToLogin()" class="seConnecter"
-  >Deja un compte? Se Connecter</a
+  >Déjà un compte ? Se connecter</a
 >
+
+<!-- Terms Modal (add this at the bottom of your template) -->
+<div *ngIf="showTermsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="hideTerms()">&times;</span>
+    <h3>Conditions Générales d'Utilisation</h3>
+    <div class="terms-content">
+      <h2>Conditions Générales d'Utilisation</h2>
+
+      <h3>1. Objet</h3>
+      <p>
+        Les présentes Conditions Générales d'Utilisation (CGU) ont pour objet de
+        définir les modalités et conditions dans lesquelles les utilisateurs
+        accèdent et utilisent le site e-commerce Apero shop.
+      </p>
+
+      <h3>2. Acceptation des Conditions</h3>
+      <p>
+        L'inscription et l'utilisation du site impliquent l'acceptation pleine
+        et entière des présentes CGU par l'utilisateur. En cas de désaccord avec
+        ces conditions, l'utilisateur est prié de ne pas s'inscrire ni utiliser
+        le site.
+      </p>
+
+      <h3>3. Inscription et Compte Utilisateur</h3>
+      <p>L'inscription est obligatoire pour passer une commande sur le site.</p>
+      <p>
+        L'utilisateur s'engage à fournir des informations exactes, complètes et
+        à jour lors de l'inscription.
+      </p>
+      <p>Un seul compte est autorisé par utilisateur.</p>
+      <p>
+        L'utilisateur est responsable de la confidentialité de ses identifiants
+        et de toute utilisation faite de son compte.
+      </p>
+
+      <h3>4. Commandes et Paiements</h3>
+      <p>
+        Toute commande passée sur le site implique une obligation de paiement.
+      </p>
+      <p>
+        Les prix affichés sont en [devise] et incluent toutes taxes applicables,
+        sauf indication contraire.
+      </p>
+      <p>
+        Le paiement s'effectue via les moyens de paiement sécurisés proposés sur
+        le site.
+      </p>
+      <p>
+        Apero shop se réserve le droit d'annuler toute commande en cas de fraude
+        présumée ou de problème de paiement.
+      </p>
+
+      <h3>5. Livraison</h3>
+      <p>
+        Les délais de livraison sont indiqués au moment de la commande et
+        peuvent varier en fonction de la destination et du mode de livraison
+        choisi.
+      </p>
+      <p>
+        Apero shop ne peut être tenu responsable des retards de livraison dus à
+        des circonstances indépendantes de sa volonté (force majeure, grèves,
+        etc.).
+      </p>
+      <p>
+        L'utilisateur doit vérifier l'état du colis à la réception et signaler
+        toute anomalie dans un délai raisonnable.
+      </p>
+
+      <h3>6. Droit de Rétractation et Retours</h3>
+      <p>
+        L'utilisateur dispose d'un délai de [nombre] jours à compter de la
+        réception de sa commande pour exercer son droit de rétractation, sauf
+        exceptions prévues par la loi.
+      </p>
+      <p>
+        Les retours doivent être effectués dans leur emballage d'origine, en
+        parfait état et accompagnés de la facture.
+      </p>
+      <p>
+        Le remboursement sera effectué sous [délai] jours après réception et
+        vérification des articles retournés.
+      </p>
+
+      <h3>7. Protection des Données Personnelles</h3>
+      <p>
+        Les informations collectées lors de l'inscription et des commandes sont
+        traitées conformément à la politique de confidentialité de Apero shop.
+        L'utilisateur dispose d'un droit d'accès, de rectification et de
+        suppression de ses données.
+      </p>
+
+      <h3>8. Responsabilité</h3>
+      <p>
+        Apero shop met tout en œuvre pour assurer un service de qualité, mais ne
+        peut être tenu responsable des interruptions, pannes ou
+        dysfonctionnements liés à des facteurs extérieurs.
+      </p>
+
+      <h3>9. Modification des CGU</h3>
+      <p>
+        Apero shop se réserve le droit de modifier les présentes CGU à tout
+        moment. L'utilisateur sera informé des modifications et devra les
+        accepter pour continuer à utiliser le site.
+      </p>
+
+      <h3>10. Résiliation</h3>
+      <p>
+        L'utilisateur peut supprimer son compte à tout moment. Apero shop se
+        réserve le droit de suspendre ou supprimer un compte en cas de violation
+        des présentes CGU.
+      </p>
+
+      <h3>11. Droit Applicable et Litiges</h3>
+      <p>
+        Les présentes CGU sont soumises au droit en vigueur. En cas de litige,
+        une tentative de résolution amiable sera privilégiée avant toute action
+        judiciaire.
+      </p>
+    </div>
+    <button (click)="hideTerms()">Fermer</button>
+  </div>
+</div>

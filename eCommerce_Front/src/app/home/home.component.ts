@@ -58,36 +58,44 @@ export class HomeComponent implements OnInit {
       this.appService.updateCartList();
     }
 
-    this.appService.getArticles().subscribe((articles) => {
-      this.articles = articles;
-      this.filtredArticles = [...this.articles];
+    this.appService.article$.subscribe({
+      next: (articles) => {
+        this.articles = articles;
+        this.filtredArticles = [...this.articles];
+        console.log('Articles mis à jour :', this.articles);
 
-      this.articles.forEach((article) => {
-        this.appService.getRatingByArticleId(article.id).subscribe({
-          next: (response: any) => {
-            if (response && response.data && Array.isArray(response.data)) {
-              const averageRating = this.appService.getAverageRating(
-                response.data
-              );
-              article.rating = Math.round(averageRating);
-            } else {
+        this.articles.forEach((article) => {
+          this.appService.getRatingByArticleId(article.id).subscribe({
+            next: (response: any) => {
+              if (response && response.data && Array.isArray(response.data)) {
+                const averageRating = this.appService.getAverageRating(
+                  response.data
+                );
+                article.rating = Math.round(averageRating);
+              } else {
+                console.error(
+                  `Réponse inattendue pour l'article ${article.id}:`,
+                  response
+                );
+                article.rating = 0;
+              }
+            },
+            error: (err) => {
               console.error(
-                `Réponse inattendue pour l'article ${article.id}:`,
-                response
+                `Erreur lors de la récupération de la notation pour l'article ${article.id}`,
+                err
               );
               article.rating = 0;
-            }
-          },
-          error: (err) => {
-            console.error(
-              `Erreur lors de la récupération de la notation pour l'article ${article.id}`,
-              err
-            );
-            article.rating = 0;
-          },
+            },
+          });
         });
-      });
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des articles :', err);
+      },
     });
+
+    this.appService.updateArticles();
   }
 
   toggleDropDown(event$: Event) {
@@ -99,8 +107,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  handleArticleDeletion(articleId: number) {
-    this.articles = this.articles.filter((article) => article.id !== articleId);
+  handleArticleDeletion(articleId: string) {
+    this.appService.deleteArticleById(articleId);
   }
 
   onSearch() {

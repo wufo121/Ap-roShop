@@ -12,18 +12,40 @@ import { Observable, of, catchError, throwError, BehaviorSubject } from 'rxjs';
 export class AppService {
   private cartListSubject = new BehaviorSubject<any[]>([]);
   cartList$ = this.cartListSubject.asObservable();
+  private articleSubject = new BehaviorSubject<any[]>([]);
+  article$ = this.articleSubject.asObservable();
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http.post('api/login', { email, password });
   }
 
-  register(email: string, password: string): Observable<any> {
-    return this.http.post('api/register', { email, password });
+  register(
+    username: string,
+    email: string,
+    address: string,
+    password: string
+  ): Observable<any> {
+    return this.http.post('api/register', {
+      username,
+      email,
+      address,
+      password,
+    });
   }
 
-  getArticles(): Observable<any[]> {
+  getArticles(): Observable<any> {
     return this.http.get<any[]>('/api/articles');
+  }
+  updateArticles(): void {
+    this.getArticles().subscribe({
+      next: (response) => {
+        this.articleSubject.next(response);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la mise à jour des articles :', err);
+      },
+    });
   }
 
   getArticleById(id: string): Observable<any> {
@@ -97,26 +119,33 @@ export class AppService {
       );
   }
 
-  deleteArticleById(id: number): Observable<any> {
-    return this.http.delete(`/api/articles/${id}`);
-  }
+  deleteArticleById(id: string): void {
+    this.http
+      .delete(`/api/articles/${id}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Erreur lors de la suppression du produit :', error);
+          return throwError(
+            () =>
+              new Error(
+                'Une erreur est survenue lors de la suppression du produit.'
+              )
+          );
+        })
+      )
+      .subscribe({
+        next: () => {
+          const updatedArticle = this.articleSubject.value.filter(
+            (article) => article.id !== id
+          );
+          this.articleSubject.next(updatedArticle);
 
-  getCartList(): Observable<any> {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${localStorage.getItem('currentUser')}`
-    );
-    return this.http.get('api/cart', { headers });
-  }
-  updateCartList(): void {
-    this.getCartList().subscribe({
-      next: (response) => {
-        this.cartListSubject.next(response.data);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la mise à jour du panier :', err);
-      },
-    });
+          console.log('Produit supprimé avec succès du panier');
+        },
+        error: (err) => {
+          console.error("Erreur lors de la suppression de l'article :", err);
+        },
+      });
   }
   deleteAndRemoveFromCart(productId: string): void {
     const headers = new HttpHeaders().set(
@@ -150,6 +179,24 @@ export class AppService {
           console.error("Erreur lors de la suppression de l'article :", err);
         },
       });
+  }
+
+  getCartList(): Observable<any> {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${localStorage.getItem('currentUser')}`
+    );
+    return this.http.get('api/cart', { headers });
+  }
+  updateCartList(): void {
+    this.getCartList().subscribe({
+      next: (response) => {
+        this.cartListSubject.next(response.data);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la mise à jour du panier :', err);
+      },
+    });
   }
 
   isLoggedIn(): boolean {
