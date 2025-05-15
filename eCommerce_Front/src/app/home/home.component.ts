@@ -8,6 +8,7 @@ import { HeaderComponent } from '../header/header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { CardCartComponent } from '../card-cart/card-cart.component';
+import { ArticlesFilterComponent } from '../articles-filters/articles-filter.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { CardCartComponent } from '../card-cart/card-cart.component';
     NgxPaginationModule,
     FormsModule,
     CardCartComponent,
+    ArticlesFilterComponent,
   ],
 
   templateUrl: './home.component.html',
@@ -34,6 +36,7 @@ export class HomeComponent implements OnInit {
   searchTerms: string = '';
   filtredArticles: any[] = this.articles;
   cartList: any[] = [];
+  categories: any[] = [];
 
   constructor(private router: Router) {}
 
@@ -42,6 +45,16 @@ export class HomeComponent implements OnInit {
       this.appService.getCurrentUser().subscribe({
         next: (data) => {
           this.user = data.user;
+        },
+      });
+
+      this.appService.getAllCategories().subscribe({
+        next: (categories) => {
+          this.categories = categories;
+          console.log('Categories:', this.categories);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des categories :', err);
         },
       });
 
@@ -119,6 +132,22 @@ export class HomeComponent implements OnInit {
         article.name.toLowerCase().includes(this.searchTerms.toLowerCase())
       );
     }
+  }
+
+  onSortChange(sortOption: string): void {
+    // Si nécessaire, vous pouvez ajouter une logique supplémentaire ici
+    // Notez que le service est déjà mis à jour dans le composant de filtre
+    console.log('Tri sélectionné:', sortOption);
+  }
+
+  onCategoryChange(category: string): void {
+    // Si nécessaire, vous pouvez ajouter une logique supplémentaire ici
+    console.log('Catégorie sélectionnée:', category);
+  }
+
+  onPriceChange(price: number): void {
+    // Si nécessaire, vous pouvez ajouter une logique supplémentaire ici
+    console.log('Prix maximum sélectionné:', price);
   }
 
   redirectToAddArticle() {

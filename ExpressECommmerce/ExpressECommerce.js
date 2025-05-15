@@ -9,6 +9,7 @@ const me = require("./router/me");
 const register = require("./router/register");
 const reviews = require("./router/reviews");
 const cart = require("./router/cart");
+const categories = require("./router/categories");
 
 dotenv.config();
 
@@ -40,6 +41,8 @@ app.use("/api", register);
 app.use("/api", reviews);
 
 app.use("/api", cart);
+
+app.use("/api", categories);
 
 app.listen(port, () => {
    console.log(`Serveur en cours d'exécution sur le port ${port}`);

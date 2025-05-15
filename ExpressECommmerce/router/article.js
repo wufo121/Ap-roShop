@@ -7,6 +7,7 @@ const {
    saveArticle,
    deleteArticleById,
    getArticleById,
+   getFilteredArticles,
 } = require("../mysql/articleFunctionQuery");
 
 const router = express.Router();
@@ -38,8 +39,21 @@ const upload = multer({ storage, fileFilter });
 
 router.get("/articles", async (req, res) => {
    try {
-      const articles = await getAllArticles();
-      res.json(articles);
+      const { category, sort, maxPrice } = req.query;
+
+      if (!category && !sort && !maxPrice) {
+         const articles = await getAllArticles();
+         return res.json(articles);
+      }
+
+      const filters = {
+         category: category || "",
+         sort: sort || "",
+         maxPrice: maxPrice ? parseFloat(maxPrice) : null,
+      };
+
+      const filteredArticles = await getFilteredArticles(filters);
+      res.json(filteredArticles);
    } catch (error) {
       console.error("Erreur lors de la récupération des articles :", error);
       res.status(500).json({ message: "Erreur serveur" });

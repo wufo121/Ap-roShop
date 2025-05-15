@@ -1,0 +1,41 @@
+<div class="columnFilter">
+  <h2>Filtrer vos recherches :</h2>
+  <div class="categories-filter">
+    <select
+      id="categorySelect"
+      class="customSelect"
+      [(ngModel)]="selectedCategory"
+      (change)="onCategoryChange()"
+    >
+      <option value="">-- Choisir une catégorie --</option>
+      <option *ngFor="let categorie of categories" [value]="categorie.id">
+        {{ categorie.name }}
+      </option>
+    </select>
+  </div>
+  <div class="review-filter">
+    <select
+      id="sortingSelect"
+      [(ngModel)]="selectedSort"
+      (change)="onSortChange()"
+    >
+      <option value="">-- Trier en fonction des avis --</option>
+      <option value="bestRated">Les mieux notés !</option>
+      <option value="noRated">Pas encore noté !</option>
+    </select>
+  </div>
+  <div class="price-filter">
+    <label for="priceRange">
+      Prix maximum : <span id="priceValue">{{ selectedPrice }}€</span>
+    </label>
+    <input
+      type="range"
+      id="priceRange"
+      min="0"
+      max="50"
+      step="1"
+      [value]="selectedPrice"
+      (input)="onPriceChange($event)"
+    />
+  </div>
+</div>

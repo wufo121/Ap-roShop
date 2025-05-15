@@ -17,49 +17,53 @@
   <button (click)="redirectToAddArticle()" class="buttonAdd">+</button>
 </div>
 
-<!-- left section desktop, top responsive -->
+<div class="articleSection">
+  <!-- left section desktop, top responsive -->
+  <div class="filterSection">
+    <app-articles-filter [categories]="categories"></app-articles-filter>
+  </div>
 
-<div class="filterSection"></div>
+  <!-- right section -->
 
-<!-- right section -->
-
-<div class="ShoppingCartSection">
-  <div class="DropDown" (click)="toggleDropDown($event)">
-    <div class="DropDownContent">
-      <app-card-cart
-        *ngFor="let articleCart of cartList"
-        class="cartArticle"
-        [name]="articleCart.productName"
-        [quantity]="articleCart.quantity"
-        [image]="'http://localhost:3000' + articleCart.imageUrl"
-        [price]="articleCart.price"
-        [productId]="articleCart.productId"
-      >
-      </app-card-cart>
+  <div class="ShoppingCartSection">
+    <div class="DropDown" (click)="toggleDropDown($event)">
+      <div class="DropDownContent">
+        <app-card-cart
+          *ngFor="let articleCart of cartList"
+          class="cartArticle"
+          [name]="articleCart.productName"
+          [quantity]="articleCart.quantity"
+          [image]="'http://localhost:3000' + articleCart.imageUrl"
+          [price]="articleCart.price"
+          [productId]="articleCart.productId"
+        >
+        </app-card-cart>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- my section middle, left responsive who contain all article -->
+  <!-- my section middle, left responsive who contain all article -->
 
-<div class="containerArticle">
-  <section class="cardGrid">
-    <app-card-article
-      *ngFor="
-        let article of filtredArticles
-          | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage }
-      "
-      [name]="article.name"
-      [src]="'http://localhost:3000' + article.imageUrl"
-      [price]="article.price"
-      [rating]="article.rating"
-      [id]="article.id"
-      [user]="user"
-      (articleDeleted)="handleArticleDeletion($event)"
-    >
-    </app-card-article>
-  </section>
-  <pagination-controls
-    (pageChange)="currentPage = $event"
-  ></pagination-controls>
+  <div class="containerArticle">
+    <section class="cardGrid">
+      <app-card-article
+        *ngFor="
+          let article of filtredArticles
+            | paginate
+              : { itemsPerPage: itemsPerPage, currentPage: currentPage }
+        "
+        [name]="article.name"
+        [src]="'http://localhost:3000' + article.imageUrl"
+        [price]="article.price"
+        [rating]="article.rating"
+        [id]="article.id"
+        [user]="user"
+        (articleDeleted)="handleArticleDeletion($event)"
+      >
+      </app-card-article>
+    </section>
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+    ></pagination-controls>
+  </div>
 </div>
