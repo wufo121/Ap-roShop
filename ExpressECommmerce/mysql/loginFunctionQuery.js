@@ -51,6 +51,8 @@ function postLogin(email, password) {
                   id: user.id,
                   username: user.username,
                   role: user.role,
+                  email: user.email,
+                  address: user.address,
                },
                process.env.JWT_KEY,
                { algorithm: "HS256" }

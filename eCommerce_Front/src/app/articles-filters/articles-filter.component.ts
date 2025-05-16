@@ -1,5 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+  inject,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppService } from '../app.service';
 
@@ -17,7 +24,13 @@ export class ArticlesFilterComponent implements OnInit {
   selectedSort: string = '';
   selectedPrice: number = 50;
 
+  isBrowser: boolean;
+
   public appService = inject(AppService);
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
     this.appService.filtersArticle$.subscribe((filters) => {
@@ -46,9 +59,11 @@ export class ArticlesFilterComponent implements OnInit {
   }
 
   updatePriceLabel(price: number): void {
-    const priceValueElement = document.getElementById('priceValue');
-    if (priceValueElement) {
-      priceValueElement.textContent = `${price}€`;
+    if (this.isBrowser) {
+      const priceValueElement = document.getElementById('priceValue');
+      if (priceValueElement) {
+        priceValueElement.textContent = `${price}€`;
+      }
     }
   }
 }

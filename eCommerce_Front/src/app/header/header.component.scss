@@ -2,7 +2,7 @@ header {
   position: relative;
   display: flex;
   justify-content: center;
-  padding: 4em;
+  padding: 2em;
   background-color: rgb(253, 215, 159);
   margin-bottom: 2%;
   box-shadow: 0px 12px 14px -8px rgba(0, 0, 0, 0.1);
@@ -20,7 +20,7 @@ header {
       color: rgb(148, 25, 33);
       text-decoration: none;
       font-weight: 500;
-      font-size: 1.2em;
+      font-size: 0.8em;
       cursor: pointer;
     }
     .nameLogout {
@@ -31,7 +31,7 @@ header {
       p {
         color: rgb(148, 25, 33);
         font-weight: 500;
-        font-size: 1.2em;
+        font-size: 0.8em;
         cursor: pointer;
       }
     }

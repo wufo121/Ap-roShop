@@ -38,4 +38,9 @@ export class HeaderComponent implements OnInit {
   redirectToLoginPage() {
     this.router.navigate(['/login']);
   }
+  redirectToProfilPage() {
+    if (this.user) {
+      this.router.navigate([`/pageProfil/${this.user.id}`]);
+    }
+  }
 }

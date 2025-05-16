@@ -1,0 +1,77 @@
+<div class="profil-page-container">
+  <h2>Page utilisateur</h2>
+  <div class="profil-page-container-info-section">
+    <p>Information utilisateur</p>
+    <div class="profil-page-container-info-section-row">
+      <label for="username">Pseudo :</label>
+      <input
+        id="username"
+        type="text"
+        [value]="user.username"
+        [disabled]="!isEditingUsername"
+      />
+      <div class="profil-page-container-info-section-row-pen-icon">
+        <button
+          (click)="enableEdit('username')"
+          class="fa-solid fa-pen"
+        ></button>
+      </div>
+      <div class="profil-page-container-info-section-row-check-icon">
+        <button
+          (click)="validateModification('username')"
+          *ngIf="isEditingUsername"
+          class="fa-solid fa-check"
+        ></button>
+      </div>
+    </div>
+
+    <div class="profil-page-container-info-section-row">
+      <label for="email">Email :</label>
+      <input
+        id="email"
+        type="email"
+        [value]="user.email"
+        [disabled]="!isEditingEmail"
+      />
+      <div class="profil-page-container-info-section-row-pen-icon">
+        <button (click)="enableEdit('email')" class="fa-solid fa-pen"></button>
+      </div>
+      <div class="profil-page-container-info-section-row-check-icon">
+        <button
+          (click)="validateModification('email')"
+          *ngIf="isEditingEmail"
+          class="fa-solid fa-check"
+        ></button>
+      </div>
+    </div>
+
+    <div class="profil-page-container-info-section-row">
+      <label for="address">Adresse :</label>
+      <input
+        id="address"
+        type="text"
+        [value]="user.address"
+        [disabled]="!isEditingAddress"
+      />
+      <div class="profil-page-container-info-section-row-pen-icon">
+        <button
+          (click)="enableEdit('address')"
+          class="fa-solid fa-pen"
+        ></button>
+      </div>
+      <div class="profil-page-container-info-section-row-check-icon">
+        <button
+          (click)="validateModification('address')"
+          *ngIf="isEditingAddress"
+          class="fa-solid fa-check"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <p
+    class="profil-page-container-info-section-link"
+    (click)="redirectToHomePage()"
+  >
+    Retour
+  </p>
+</div>

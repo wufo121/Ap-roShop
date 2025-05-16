@@ -19,6 +19,8 @@ router.get("/me", (req, res) => {
             id: decoded.id,
             username: decoded.username,
             role: decoded.role,
+            email: decoded.email,
+            address: decoded.address,
          },
       });
    } catch (err) {

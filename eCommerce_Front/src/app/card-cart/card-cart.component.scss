@@ -1,7 +1,7 @@
 .card-cart {
   background-color: white;
   border-radius: 20px;
-  height: 9em;
+  height: 6em;
 
   margin: 1em 1em;
 
@@ -12,22 +12,24 @@
     .leftSection {
       display: flex;
 
-      width: 45%;
+      width: 34%;
       display: flex;
       align-items: center;
       justify-content: center;
       p {
-        margin-right: 2em;
+        margin-right: 1em;
+        font-size: 0.7em;
+        margin-left: 0.2em;
       }
       img {
-        height: 5em;
-        width: 6em;
+        height: 3em;
+        width: 3.5em;
         object-fit: cover;
       }
     }
     .rightSection {
       position: relative;
-      width: 54%;
+      width: 65%;
       display: flex;
       flex-direction: row;
       gap: 1em;
@@ -40,11 +42,12 @@
           width: 100%;
           text-align: center;
           font-weight: bold;
-          font-size: 1.2em;
+          font-size: 0.7em;
         }
         .bottomRightSection {
           text-align: center;
           width: 100%;
+          font-size: 0.7em;
         }
 
         button {

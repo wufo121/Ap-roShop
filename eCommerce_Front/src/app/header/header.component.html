@@ -2,9 +2,9 @@
   <h1>APÉRO SHOP</h1>
   <div class="loginSection">
     <div class="nameLogout" *ngIf="isLoggedIn() && user">
-      <p>{{ user.username }} /&nbsp;&nbsp;</p>
+      <p (click)="redirectToProfilPage()">{{ user.username }} /&nbsp;&nbsp;</p>
       <a (click)="logout()"> Se déconnecter</a>
     </div>
-    <a *ngIf="!isLoggedIn()" (click)="redirectToLoginPage()">Login</a>
+    <a *ngIf="!isLoggedIn()" (click)="redirectToLoginPage()">Connexion</a>
   </div>
 </header>

@@ -10,7 +10,7 @@
         />
       </div>
       <div class="rightSection">
-        <h1>{{ article.name }}</h1>
+        <h2>{{ article.name }}</h2>
         <p>{{ article.description }}</p>
         <p>{{ article.price }} €</p>
         <p>{{ averageRating }}/5</p>
@@ -86,6 +86,7 @@
             </app-card-review>
             <pagination-controls
               (pageChange)="currentPage = $event"
+              class="paginateContainerReview"
             ></pagination-controls>
             <button class="addReview" (click)="showFormReview = true">
               Ajouter un avis
@@ -101,6 +102,7 @@
       </div>
     </div>
   </div>
+  <p class="link" (click)="redirectToHomePage()">Retour</p>
 </div>
 
 <div *ngIf="!article">Chargement des donées...</div>

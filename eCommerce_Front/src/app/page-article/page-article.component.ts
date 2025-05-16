@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { CommonModule } from '@angular/common';
@@ -31,7 +31,11 @@ export class PageArticleComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  constructor(private route: ActivatedRoute, private appService: AppService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private appService: AppService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.articleId = this.route.snapshot.paramMap.get('id');
@@ -95,5 +99,9 @@ export class PageArticleComponent implements OnInit {
 
   getAverageRating() {
     this.averageRating = this.appService.getAverageRating(this.ratings);
+  }
+
+  redirectToHomePage() {
+    this.router.navigate(['/home']);
   }
 }

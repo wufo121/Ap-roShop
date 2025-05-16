@@ -9,27 +9,39 @@
   border: 1px black solid;
   border-radius: 20px;
   background-color: white;
-  padding: 2em;
+  padding: 1.6em;
   width: 40%;
-  margin-bottom: 2em;
-  margin-top: 1em;
+  margin-bottom: 3em;
+  margin-top: 0.8em;
 
   .leftSection {
     display: flex;
     justify-content: center;
-    width: 50%;
+    width: 35%;
+    align-items: center;
 
     img {
-      height: 10em;
+      height: 7em;
     }
   }
 
   .rightSection {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 50%;
-    margin-right: 2em;
+    justify-content: flex-end;
+    width: 65%;
+    margin-right: 1.6em;
+    gap: 0.5em;
+
+    h2 {
+      text-align: center;
+    }
+
+    p {
+      font-size: 0.8em;
+      text-align: center;
+      margin: 0;
+    }
   }
 }
 
@@ -56,7 +68,7 @@
   flex-direction: row;
   justify-content: space-between;
 
-  height: 32vh;
+  height: 26vh;
 
   .leftSection {
     width: 30%;
@@ -65,14 +77,18 @@
 
     .sectionStatNumberStar {
       border: 1px black solid;
-      padding: 1em;
+      padding: 0.7em;
       border-radius: 40px;
-      margin-left: 1em;
+      margin-left: 0.7em;
+      font-size: 0.7em;
+      width: 60%;
 
       .starsPercentage {
         display: flex;
         flex-direction: row;
         align-items: center;
+        height: 2em;
+        margin-top: 0.6em;
 
         .fa-star {
           color: #d3d3d3;
@@ -97,7 +113,7 @@
     overflow-x: hidden;
 
     &::-webkit-scrollbar {
-      width: 15px;
+      width: 10px;
     }
 
     &::-webkit-scrollbar-track {
@@ -122,10 +138,15 @@
         width: 100%;
       }
 
+      .paginateContainerReview {
+        font-size: 0.8em;
+        text-align: center;
+      }
+
       .addReview {
         width: 90%;
         align-self: flex-start;
-        padding: 0.75rem 1.5rem;
+        padding: 0.6rem 1.2rem;
         background-color: #0066cc;
         color: white;
         border: none;
@@ -133,6 +154,7 @@
         cursor: pointer;
         font-weight: 500;
         transition: background-color 0.2s ease;
+        font-size: 0.8em;
 
         &:hover {
           background-color: #0052a3;
@@ -140,4 +162,8 @@
       }
     }
   }
+}
+
+.link {
+  cursor: pointer;
 }

@@ -134,20 +134,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onSortChange(sortOption: string): void {
-    // Si nécessaire, vous pouvez ajouter une logique supplémentaire ici
-    // Notez que le service est déjà mis à jour dans le composant de filtre
-    console.log('Tri sélectionné:', sortOption);
+  onSortChange(sortValue: string) {
+    this.appService.updateFilters({ sort: sortValue });
   }
 
-  onCategoryChange(category: string): void {
-    // Si nécessaire, vous pouvez ajouter une logique supplémentaire ici
-    console.log('Catégorie sélectionnée:', category);
+  onCategoryChange(categoryValue: string) {
+    this.appService.updateFilters({ category: categoryValue });
   }
 
-  onPriceChange(price: number): void {
-    // Si nécessaire, vous pouvez ajouter une logique supplémentaire ici
-    console.log('Prix maximum sélectionné:', price);
+  onPriceChange(priceValue: number) {
+    this.appService.updateFilters({ maxPrice: priceValue });
   }
 
   redirectToAddArticle() {
