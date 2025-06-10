@@ -20,6 +20,7 @@
   justify-content: center;
   margin-top: 1em;
   position: relative;
+  width: 100%;
 
   .buttonAdd {
     width: 40px;
@@ -38,7 +39,7 @@
     transition: transform 0.2s ease;
   }
 
-  &:hover {
+  buttonAdd:hover {
     transform: scale(1.1);
   }
 }

@@ -9,7 +9,7 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      return !!localStorage.getItem('token');
+      return !!localStorage.getItem('currentUser');
     }
     return false;
   }

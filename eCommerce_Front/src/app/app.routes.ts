@@ -7,6 +7,8 @@ import { PageArticleComponent } from './page-article/page-article.component';
 import { ProfilPageComponent } from './profil-page/profil-page.component';
 import { AuthGuard } from './Auth/auth-guard';
 import { NoAuthGuard } from './Auth/no-auth-guard';
+import { LegalMentionsComponent } from './legal-mentions/legal-mentions.component';
+import { ConfidentialPolityComponent } from './confidential-polity/confidential-polity.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,5 +25,13 @@ export const routes: Routes = [
     path: 'pageProfil/:id',
     component: ProfilPageComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'mentionLegal',
+    component: LegalMentionsComponent,
+  },
+  {
+    path: 'politiqueDeConfidence',
+    component: ConfidentialPolityComponent,
   },
 ];
