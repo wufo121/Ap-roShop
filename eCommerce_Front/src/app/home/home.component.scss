@@ -47,6 +47,7 @@
 .articleSection {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 
   // section filter
 
@@ -112,7 +113,7 @@
   .containerArticle {
     width: 62%;
     height: 60vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-right: 1em auto;
     padding-top: 1em;
 
@@ -136,6 +137,7 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2em;
       margin: 0em 1em;
+      overflow: hidden;
     }
   }
 }

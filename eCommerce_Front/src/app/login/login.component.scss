@@ -63,3 +63,23 @@ h1 {
 .link {
   cursor: pointer;
 }
+@media only screen and (max-width: 1024px) {
+  .formSection {
+    form {
+      width: 200px;
+
+      ul {
+        input {
+          padding: 0.7em;
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+
+  .link {
+    margin-top: 5em;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+}
