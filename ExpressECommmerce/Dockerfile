@@ -8,5 +8,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-RUN npm install
+
 CMD ["node", "ExpressECommerce.js"]

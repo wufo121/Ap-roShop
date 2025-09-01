@@ -14,6 +14,9 @@ services:
    frontend:
       build: ./eCommerce_Front
       ports:
-         - "4200:80"
+         - "4200:4200"
       depends_on:
          - backend
+      volumes:
+         - ./eCommerce_Front:/app
+         - /app/node_modules
