@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReviewFormComponent } from './review-form.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ReviewFormComponent', () => {
   let component: ReviewFormComponent;
@@ -8,9 +9,9 @@ describe('ReviewFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReviewFormComponent]
-    })
-    .compileComponents();
+      imports: [ReviewFormComponent],
+      providers: [provideHttpClient()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ReviewFormComponent);
     component = fixture.componentInstance;

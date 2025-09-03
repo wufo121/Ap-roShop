@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArticlesFilterComponent } from './articles-filter.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('CategoriesFilterComponent', () => {
   let component: ArticlesFilterComponent;
@@ -9,6 +10,7 @@ describe('CategoriesFilterComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ArticlesFilterComponent],
+      providers: [provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ArticlesFilterComponent);

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageArticleComponent } from './page-article.component';
+import { provideHttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 describe('PageArticleComponent', () => {
   let component: PageArticleComponent;
@@ -8,9 +10,18 @@ describe('PageArticleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageArticleComponent]
-    })
-    .compileComponents();
+      imports: [PageArticleComponent],
+      providers: [
+        provideHttpClient(),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: { paramMap: new Map([['id', '1']]) },
+            params: { subscribe: () => {} },
+          },
+        },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PageArticleComponent);
     component = fixture.componentInstance;

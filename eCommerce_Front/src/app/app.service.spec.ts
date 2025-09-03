@@ -19,7 +19,6 @@ describe('AppService', () => {
     service = TestBed.inject(AppService);
     httpMock = TestBed.inject(HttpTestingController);
 
-    // Mock localStorage
     let store: { [key: string]: string } = {};
     spyOn(localStorage, 'getItem').and.callFake(
       (key: string) => store[key] || null
@@ -40,7 +39,6 @@ describe('AppService', () => {
     expect(service).toBeTruthy();
   });
 
-  // ---------------- Authentication ----------------
   describe('Authentication Methods', () => {
     it('should login successfully', () => {
       const mockResponse = { token: 'test-token' };
@@ -126,7 +124,6 @@ describe('AppService', () => {
     });
   });
 
-  // ---------------- Articles ----------------
   describe('Article Methods', () => {
     it('should get all articles', () => {
       const mockArticles = [
@@ -220,7 +217,6 @@ describe('AppService', () => {
     });
   });
 
-  // ---------------- Reviews & Ratings ----------------
   describe('Review Methods', () => {
     it('should get reviews by article id', () => {
       const articleId = '1';
@@ -288,7 +284,6 @@ describe('AppService', () => {
     });
   });
 
-  // ---------------- Cart ----------------
   describe('Cart Methods', () => {
     it('should add to cart', () => {
       const productId = '1';
@@ -363,7 +358,6 @@ describe('AppService', () => {
     });
   });
 
-  // ---------------- Filters ----------------
   describe('Filter Methods', () => {
     it('should update filters', () => {
       const newFilters = { category: 'electronics', maxPrice: 100 };
@@ -373,7 +367,7 @@ describe('AppService', () => {
       const req = httpMock.expectOne(
         '/api/articles?category=electronics&maxPrice=100'
       );
-      req.flush([]); // flush to avoid open request
+      req.flush([]);
 
       service.filtersArticle$.subscribe((filters) => {
         expect(filters).toEqual(jasmine.objectContaining(newFilters));
@@ -430,7 +424,6 @@ describe('AppService', () => {
     });
   });
 
-  // ---------------- Ratings ----------------
   describe('Rating Methods', () => {
     const testRatings = [
       { rating: 5 },
@@ -476,7 +469,6 @@ describe('AppService', () => {
     });
   });
 
-  // ---------------- Categories ----------------
   describe('Category Methods', () => {
     it('should get all categories', () => {
       const mockCategories = ['electronics', 'clothing', 'books'];
