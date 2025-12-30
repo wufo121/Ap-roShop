@@ -1,6 +1,3 @@
-const express = require("express");
-const multer = require("multer");
-<<<<<<< HEAD
 const path = require("path");
 const fs = require("fs");
 const {
@@ -8,75 +5,35 @@ const {
    saveArticle,
    deleteArticleById,
    getArticleById,
-   getFilteredArticles,
 } = require("../mysql/articleFunctionQuery");
-=======
-const articleController = require("../controller/articleController");
->>>>>>> afcc062 (controller)
 
-const router = express.Router();
-
-const storage = multer.diskStorage({
-   destination: (req, file, cb) => {
-      cb(null, "public/imagesArticle");
-   },
-   filename: (req, file, cb) => {
-      const timestamp = Date.now();
-      const sanitizedFileName = file.originalname.replace(/\s+/g, "_");
-      cb(null, `${timestamp}-${sanitizedFileName}`);
-   },
-});
-
-const fileFilter = (req, file, cb) => {
-   const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-   if (allowedTypes.includes(file.mimetype)) {
-      cb(null, true);
-   } else {
-      cb(
-         new Error("Seuls les fichiers JPG, PNG et WEBP sont autorisés"),
-         false
-      );
+exports.getArticles = async (req, res) => {
+   try {
+      const articles = await getAllArticles();
+      res.json(articles);
+   } catch (error) {
+      console.error("Erreur lors de la récupération des articles :", error);
+      res.status(500).json({ message: "Erreur serveur" });
    }
 };
 
-const upload = multer({ storage, fileFilter });
-
-<<<<<<< HEAD
-router.get("/articles", async (req, res) => {
-   try {
-      const { category, sort, maxPrice } = req.query;
-
-      if (!category && !sort && !maxPrice) {
-         const articles = await getAllArticles();
-         return res.json(articles);
-      }
-
-      const filters = {
-         category: category || "",
-         sort: sort || "",
-         maxPrice: maxPrice ? parseFloat(maxPrice) : null,
-      };
-
-      const filteredArticles = await getFilteredArticles(filters);
-      res.json(filteredArticles);
-   } catch (error) {
-      console.error("Erreur lors de la récupération des articles :", error);
-      res.status(500).json({ message: "Erreur serveur" });
-   }
-});
-
-router.get("/articles/:id", async (req, res) => {
+exports.getArticle = async (req, res) => {
    try {
       const articleId = req.params.id;
       const article = await getArticleById(articleId);
+
+      if (!article) {
+         return res.status(404).json({ message: "Article non trouvé" });
+      }
+
       res.json(article);
    } catch (error) {
-      console.error("Erreur lors de la récupération des articles :", error);
+      console.error("Erreur lors de la récupération de l'article :", error);
       res.status(500).json({ message: "Erreur serveur" });
    }
-});
+};
 
-router.post("/articles", upload.single("image"), async (req, res) => {
+exports.createArticle = async (req, res) => {
    try {
       const { name, description, price, category, stock } = req.body;
 
@@ -107,9 +64,9 @@ router.post("/articles", upload.single("image"), async (req, res) => {
       console.error("Erreur lors de l'ajout de l'article :", error);
       res.status(500).json({ message: "Erreur serveur" });
    }
-});
+};
 
-router.delete("/articles/:id", async (req, res) => {
+exports.deleteArticle = async (req, res) => {
    try {
       const articleId = parseInt(req.params.id);
 
@@ -137,16 +94,4 @@ router.delete("/articles/:id", async (req, res) => {
       console.error("Erreur lors de la suppression de l'article :", error);
       res.status(500).json({ message: "Erreur serveur" });
    }
-});
-=======
-router.get("/articles", articleController.getArticles);
-router.get("/articles/:id", articleController.getArticle);
-router.post(
-   "/articles",
-   upload.single("image"),
-   articleController.createArticle
-);
-router.delete("/articles/:id", articleController.deleteArticle);
->>>>>>> afcc062 (controller)
-
-module.exports = router;
+};

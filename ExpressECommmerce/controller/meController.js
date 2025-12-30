@@ -1,10 +1,6 @@
-const express = require("express");
-const authController = require("../controller/meController");
+const jwt = require("jsonwebtoken");
 
-const router = express.Router();
-
-<<<<<<< HEAD
-router.get("/me", (req, res) => {
+exports.getCurrentUser = (req, res) => {
    const authorizationValue = req.headers.authorization;
 
    if (!authorizationValue) {
@@ -20,17 +16,10 @@ router.get("/me", (req, res) => {
             id: decoded.id,
             username: decoded.username,
             role: decoded.role,
-            email: decoded.email,
-            address: decoded.address,
          },
       });
    } catch (err) {
       console.error("Erreur lors de la vérification du token :", err);
       return res.status(401).json({ message: "Token invalide ou expiré" });
    }
-});
-=======
-router.get("/me", authController.getCurrentUser);
->>>>>>> afcc062 (controller)
-
-module.exports = router;
+};

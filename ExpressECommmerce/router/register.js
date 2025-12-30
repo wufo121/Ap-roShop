@@ -1,8 +1,9 @@
 const express = require("express");
-const { postRegister } = require("../mysql/registerFunctionQuery");
+const registerController = require("../controller/registerController");
 
-router = express.Router();
+const router = express.Router();
 
+<<<<<<< HEAD
 router.post("/register", async (req, res) => {
    try {
       const { username, email, address, password } = req.body;
@@ -20,5 +21,8 @@ router.post("/register", async (req, res) => {
       });
    }
 });
+=======
+router.post("/register", registerController.register);
+>>>>>>> afcc062 (controller)
 
 module.exports = router;

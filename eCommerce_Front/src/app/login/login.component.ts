@@ -53,4 +53,7 @@ export class LoginComponent {
   redirectToRegister() {
     this.router.navigate(['/register']);
   }
+  returnToHomePage() {
+    this.router.navigate(['/home']);
+  }
 }
