@@ -72,8 +72,10 @@ export class AppService {
   }
   applyFilters(): void {
     const currentFilters = this.filtersArticleSubject.value;
+    console.log('Applying filters:', currentFilters); // <-- DEBUG
     this.getFilteredArticles(currentFilters).subscribe({
       next: (response) => {
+        console.log('Filtered articles:', response); // <-- DEBUG
         this.articleSubject.next(response);
       },
       error: (err) => {
@@ -84,6 +86,7 @@ export class AppService {
       },
     });
   }
+
   updateArticles(): void {
     const filters = this.filtersArticleSubject.value;
     if (filters.category || filters.sort || filters.maxPrice !== 50) {

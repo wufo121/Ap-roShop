@@ -1,22 +1,23 @@
 const path = require("path");
 const fs = require("fs");
 const {
-   getAllArticles,
    saveArticle,
    deleteArticleById,
    getArticleById,
+   getFilteredArticles,
 } = require("../mysql/articleFunctionQuery");
 
 exports.getArticles = async (req, res) => {
    try {
-      const articles = await getAllArticles();
+      const { category, sort, maxPrice } = req.query;
+      const filters = { category, sort, maxPrice };
+      const articles = await getFilteredArticles(filters);
       res.json(articles);
    } catch (error) {
       console.error("Erreur lors de la récupération des articles :", error);
       res.status(500).json({ message: "Erreur serveur" });
    }
 };
-
 exports.getArticle = async (req, res) => {
    try {
       const articleId = req.params.id;

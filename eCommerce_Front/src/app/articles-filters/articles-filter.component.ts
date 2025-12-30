@@ -15,7 +15,7 @@ import { AppService } from '../app.service';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: 'articles-filter.component.html',
-  styleUrl: 'articles-filter.component.scss',
+  styleUrls: ['articles-filter.component.scss'],
 })
 export class ArticlesFilterComponent implements OnInit {
   @Input() categories: any[] = [];

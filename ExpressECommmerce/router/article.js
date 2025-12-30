@@ -1,18 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-<<<<<<< HEAD
-const path = require("path");
-const fs = require("fs");
-const {
-   getAllArticles,
-   saveArticle,
-   deleteArticleById,
-   getArticleById,
-   getFilteredArticles,
-} = require("../mysql/articleFunctionQuery");
-=======
 const articleController = require("../controller/articleController");
->>>>>>> afcc062 (controller)
 
 const router = express.Router();
 
@@ -41,104 +29,6 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
-<<<<<<< HEAD
-router.get("/articles", async (req, res) => {
-   try {
-      const { category, sort, maxPrice } = req.query;
-
-      if (!category && !sort && !maxPrice) {
-         const articles = await getAllArticles();
-         return res.json(articles);
-      }
-
-      const filters = {
-         category: category || "",
-         sort: sort || "",
-         maxPrice: maxPrice ? parseFloat(maxPrice) : null,
-      };
-
-      const filteredArticles = await getFilteredArticles(filters);
-      res.json(filteredArticles);
-   } catch (error) {
-      console.error("Erreur lors de la récupération des articles :", error);
-      res.status(500).json({ message: "Erreur serveur" });
-   }
-});
-
-router.get("/articles/:id", async (req, res) => {
-   try {
-      const articleId = req.params.id;
-      const article = await getArticleById(articleId);
-      res.json(article);
-   } catch (error) {
-      console.error("Erreur lors de la récupération des articles :", error);
-      res.status(500).json({ message: "Erreur serveur" });
-   }
-});
-
-router.post("/articles", upload.single("image"), async (req, res) => {
-   try {
-      const { name, description, price, category, stock } = req.body;
-
-      if (!req.file) {
-         return res.status(400).json({
-            message: "Veuillez fournir une image valide (JPG, PNG ou WEBP)",
-         });
-      }
-
-      const imagePath = `/imagesArticle/${req.file.filename}`;
-
-      const articleData = {
-         name,
-         description,
-         price: parseFloat(price),
-         category: parseInt(category),
-         stock: parseInt(stock),
-         imagePath,
-      };
-
-      await saveArticle(articleData);
-
-      res.status(201).json({
-         message: "Article ajouté avec succès",
-         article: articleData,
-      });
-   } catch (error) {
-      console.error("Erreur lors de l'ajout de l'article :", error);
-      res.status(500).json({ message: "Erreur serveur" });
-   }
-});
-
-router.delete("/articles/:id", async (req, res) => {
-   try {
-      const articleId = parseInt(req.params.id);
-
-      if (isNaN(articleId)) {
-         return res.status(400).json({ message: "ID invalide" });
-      }
-
-      const { deleteResult, imageUrl } = await deleteArticleById(articleId);
-
-      if (deleteResult.affectedRows === 0) {
-         return res.status(404).json({ message: "Article non trouvé" });
-      }
-
-      if (imageUrl) {
-         const imagePath = path.join(__dirname, "../public", imageUrl);
-         fs.unlink(imagePath, (err) => {
-            if (err) {
-               console.error("Erreur lors de la suppression de l'image:", err);
-            }
-         });
-      }
-
-      res.status(200).json({ message: "Article supprimé avec succès" });
-   } catch (error) {
-      console.error("Erreur lors de la suppression de l'article :", error);
-      res.status(500).json({ message: "Erreur serveur" });
-   }
-});
-=======
 router.get("/articles", articleController.getArticles);
 router.get("/articles/:id", articleController.getArticle);
 router.post(
@@ -147,6 +37,5 @@ router.post(
    articleController.createArticle
 );
 router.delete("/articles/:id", articleController.deleteArticle);
->>>>>>> afcc062 (controller)
 
 module.exports = router;
