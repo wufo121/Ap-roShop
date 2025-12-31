@@ -23,6 +23,7 @@ export class ArticlesFilterComponent implements OnInit {
   selectedCategory: string = '';
   selectedSort: string = '';
   selectedPrice: number = 50;
+  priceLabel = '50';
 
   isBrowser: boolean;
 
@@ -38,7 +39,7 @@ export class ArticlesFilterComponent implements OnInit {
       this.selectedSort = filters.sort;
       this.selectedPrice = filters.maxPrice;
 
-      this.updatePriceLabel(this.selectedPrice);
+      this.priceLabel = `${this.selectedPrice}€`;
     });
   }
 
@@ -54,16 +55,7 @@ export class ArticlesFilterComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const price = parseInt(input.value, 10);
     this.selectedPrice = price;
-    this.updatePriceLabel(price);
+    this.priceLabel = `${this.selectedPrice}€`;
     this.appService.updateFilters({ maxPrice: price });
-  }
-
-  updatePriceLabel(price: number): void {
-    if (this.isBrowser) {
-      const priceValueElement = document.getElementById('priceValue');
-      if (priceValueElement) {
-        priceValueElement.textContent = `${price}€`;
-      }
-    }
   }
 }

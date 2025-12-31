@@ -7,12 +7,13 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { AppService } from '../app.service';
+
 @Component({
   selector: 'app-review-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './review-form.component.html',
-  styleUrl: './review-form.component.scss',
+  styleUrls: ['./review-form.component.scss'],
 })
 export class ReviewFormComponent {
   @Output() submitReview = new EventEmitter<Review>();
@@ -39,7 +40,12 @@ export class ReviewFormComponent {
   }
 
   onSubmit(): void {
-    if (this.reviewForm.valid && this.currentUser) {
+    if (!this.currentUser) {
+      alert('Vous devez être connecté pour laisser un avis');
+      return;
+    }
+
+    if (this.reviewForm.valid) {
       const reviewData = {
         rating: this.reviewForm.value.rating,
         comment: this.reviewForm.value.comment,
@@ -47,25 +53,20 @@ export class ReviewFormComponent {
 
       this.appService.addReview(this.articleId, reviewData).subscribe({
         next: (response) => {
-          if (response.sucess) {
+          if (response.success) {
             const newReview = response.data[response.data.length - 1];
             console.log('Nouvel avis:', newReview);
             this.submitReview.emit(newReview);
 
             this.reviewForm.reset();
-
             this.closeModal.emit();
-
-            this.cancel();
           }
         },
         error: (error) => {
           console.error("Erreur lors de l'ajout de l'avis:", error);
-          this.cancel();
+          this.closeModal.emit();
         },
       });
-    } else if (!this.currentUser) {
-      alert('Vous devez être connecté pour laisser un avis');
     }
   }
 
@@ -79,7 +80,8 @@ export class ReviewFormComponent {
     }
   }
 }
-interface Review {
+
+export interface Review {
   rating: number;
   comment: string;
   date: Date;

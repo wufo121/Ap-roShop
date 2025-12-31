@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "lint": "ng lint",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --port 4200 --disable-host-check",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -24,6 +24,8 @@
     "@angular/ssr": "^18.2.13",
     "express": "^4.18.2",
     "ngx-pagination": "^6.0.3",
+    "parse5": "7.1.2",
+    "entities": "4.5.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
@@ -45,5 +47,11 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.5.2",
     "typescript-eslint": "8.40.0"
+  },
+  "resolutions": {
+    "entities": "4.5.0"
+  },
+  "overrides": {
+    "entities": "4.5.0"
   }
 }
