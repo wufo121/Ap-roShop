@@ -5,7 +5,7 @@ const {
    deleteArticleById,
    getArticleById,
    getFilteredArticles,
-} = require("../mysql/articleFunctionQuery");
+} = require("../service/articleService");
 
 exports.getArticles = async (req, res) => {
    try {

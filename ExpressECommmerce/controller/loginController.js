@@ -1,4 +1,4 @@
-const { postLogin } = require("../mysql/loginFunctionQuery");
+const { postLogin } = require("../service/loginService");
 
 exports.login = async (req, res) => {
    try {

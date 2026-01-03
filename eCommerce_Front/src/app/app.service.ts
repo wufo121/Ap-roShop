@@ -148,9 +148,9 @@ export class AppService {
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          console.error('Error occurred:', error);
+          console.error('Erreur survenue :', error);
           return throwError(
-            () => new Error('Something went wrong with adding the review.')
+            () => new Error("Une erreur est survenue lors de l'ajout d'un avis")
           );
         })
       );
@@ -166,9 +166,12 @@ export class AppService {
       .post('api/cart', { productId, quantity }, { headers })
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          console.error('Error occurred:', error);
+          console.error('Erreur :', error);
           return throwError(
-            () => new Error('Something went wrong with adding the review.')
+            () =>
+              new Error(
+                "Une erreur est survenu lors de l'ajout d'un article au panier"
+              )
           );
         })
       );

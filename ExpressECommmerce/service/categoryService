@@ -1,0 +1,15 @@
+const categoryQuery = require("../mysql/categoryFunctionQuery");
+
+async function getAllCategories() {
+   try {
+      const categories = await categoryQuery.findAll();
+      return categories;
+   } catch (err) {
+      console.error("Erreur lors de la récupération des catégories :", err);
+      throw err;
+   }
+}
+
+module.exports = {
+   getAllCategories,
+};

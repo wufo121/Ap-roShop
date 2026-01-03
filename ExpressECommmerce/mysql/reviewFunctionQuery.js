@@ -1,6 +1,6 @@
 const pool = require("./pool");
 
-function getReviews(articleId) {
+function findByProductId(productId) {
    return new Promise((resolve, reject) => {
       const query = `
             SELECT 
@@ -12,17 +12,17 @@ function getReviews(articleId) {
             ORDER BY Reviews.createdAt DESC
         `;
 
-      pool.query(query, [articleId], (error, results) => {
+      pool.query(query, [productId], (error, results) => {
          if (error) {
             reject(error);
-            return;
+         } else {
+            resolve(results);
          }
-         resolve(results);
       });
    });
 }
 
-function addReviews(productId, userId, rating, comment) {
+function create(productId, userId, rating, comment) {
    return new Promise((resolve, reject) => {
       const query = `
       INSERT INTO Reviews (productId,userId,rating,comment,createdAt)
@@ -34,32 +34,32 @@ function addReviews(productId, userId, rating, comment) {
          (error, results) => {
             if (error) {
                reject(error);
-               return;
+            } else {
+               resolve(results);
             }
-            resolve(results);
          }
       );
    });
 }
 
-function getNoteReviews(articleId) {
+function findRatingsByProductId(productId) {
    return new Promise((resolve, reject) => {
       const query = `
       SELECT rating FROM Reviews
       WHERE Reviews.productId = ?
       `;
-      pool.query(query, [articleId], (error, results) => {
+      pool.query(query, [productId], (error, results) => {
          if (error) {
             reject(error);
-            return;
+         } else {
+            resolve(results);
          }
-         resolve(results);
       });
    });
 }
 
 module.exports = {
-   getReviews,
-   addReviews,
-   getNoteReviews,
+   findByProductId,
+   create,
+   findRatingsByProductId,
 };

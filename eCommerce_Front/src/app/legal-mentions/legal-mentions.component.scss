@@ -1,3 +1,46 @@
+h1 {
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  color: rgb(148, 25, 33);
+}
+
+.contentSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .contentBox {
+    width: 40vw;
+    background-color: #fefefe;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+}
+
 .link {
+  margin-top: 1.5em;
+  display: flex;
+  justify-content: center;
+  font-size: 0.9em;
   cursor: pointer;
+  color: #1481a6;
+
+  &:hover {
+    text-decoration: underline;
+    color: darken(#1481a6, 10%);
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .contentSection {
+    .contentBox {
+      width: 85vw;
+    }
+  }
 }

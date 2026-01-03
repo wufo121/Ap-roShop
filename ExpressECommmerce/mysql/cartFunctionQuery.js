@@ -1,38 +1,27 @@
 const pool = require("./pool");
 
-function addToCart(userId, productId, quantity) {
-   return getOrCreateCart(userId)
-      .then((cartId) => addOrUpdateProduct(cartId, productId, quantity))
-      .catch((error) => {
-         throw error;
-      });
-}
-
-function getOrCreateCart(userId) {
+function findCartByUserId(userId) {
    return new Promise((resolve, reject) => {
-      const cartQuery = "SELECT id FROM Cart WHERE userId = ?";
-      pool.query(cartQuery, [userId], (error, results) => {
+      const query = "SELECT id FROM Cart WHERE userId = ?";
+      pool.query(query, [userId], (error, results) => {
          if (error) return reject(error);
-
-         if (results.length === 0) {
-            const createCartQuery =
-               "INSERT INTO Cart (userId, createdAt, updatedAt) VALUES (?, NOW(), NOW())";
-            pool.query(
-               createCartQuery,
-               [userId],
-               (createError, createResults) => {
-                  if (createError) return reject(createError);
-                  resolve(createResults.insertId);
-               }
-            );
-         } else {
-            resolve(results[0].id);
-         }
+         resolve(results[0]);
       });
    });
 }
 
-function addOrUpdateProduct(cartId, productId, quantity) {
+function createCart(userId) {
+   return new Promise((resolve, reject) => {
+      const query =
+         "INSERT INTO Cart (userId, createdAt, updatedAt) VALUES (?, NOW(), NOW())";
+      pool.query(query, [userId], (error, results) => {
+         if (error) return reject(error);
+         resolve(results.insertId);
+      });
+   });
+}
+
+function addOrUpdateCartItem(cartId, productId, quantity) {
    return new Promise((resolve, reject) => {
       const query = `
       INSERT INTO Cart_items (cartId, productId, quantity, price)
@@ -55,7 +44,7 @@ function addOrUpdateProduct(cartId, productId, quantity) {
    });
 }
 
-function getCartArticleByUser(userId) {
+function findCartItemsByUserId(userId) {
    return new Promise((resolve, reject) => {
       const query = `
       SELECT 
@@ -73,15 +62,13 @@ function getCartArticleByUser(userId) {
     `;
 
       pool.query(query, [userId], (error, results) => {
-         if (error) {
-            return reject(error);
-         }
+         if (error) return reject(error);
          resolve(results);
       });
    });
 }
 
-function removeFromCart(userId, productId) {
+function deleteCartItem(userId, productId) {
    return new Promise((resolve, reject) => {
       const query = `
       DELETE Cart_items
@@ -90,16 +77,16 @@ function removeFromCart(userId, productId) {
       WHERE Cart.userId = ? AND Cart_items.productId = ?;`;
 
       pool.query(query, [userId, productId], (error, results) => {
-         if (error) {
-            return reject(error);
-         }
-         resolve({ message: "Article supprimé du panier avec succès." });
+         if (error) return reject(error);
+         resolve(results);
       });
    });
 }
 
 module.exports = {
-   addToCart,
-   getCartArticleByUser,
-   removeFromCart,
+   findCartByUserId,
+   createCart,
+   addOrUpdateCartItem,
+   findCartItemsByUserId,
+   deleteCartItem,
 };

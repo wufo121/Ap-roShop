@@ -55,7 +55,6 @@ export class ReviewFormComponent {
         next: (response) => {
           if (response.success) {
             const newReview = response.data[response.data.length - 1];
-            console.log('Nouvel avis:', newReview);
             this.submitReview.emit(newReview);
 
             this.reviewForm.reset();

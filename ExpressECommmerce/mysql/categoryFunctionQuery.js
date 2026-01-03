@@ -1,13 +1,9 @@
 const pool = require("./pool");
 
-function getAllCategories() {
+function findAll() {
    return new Promise((resolve, reject) => {
       pool.query("SELECT * FROM Categories", (err, rows) => {
          if (err) {
-            console.error(
-               "Erreur lors de la récupération des catégories :",
-               err
-            );
             reject(err);
          } else {
             resolve(rows);
@@ -17,5 +13,5 @@ function getAllCategories() {
 }
 
 module.exports = {
-   getAllCategories,
+   findAll,
 };

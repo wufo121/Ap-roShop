@@ -1,4 +1,4 @@
-const { postRegister } = require("../mysql/registerFunctionQuery");
+const { postRegister } = require("../service/registerService");
 
 exports.register = async (req, res) => {
    try {

@@ -2,7 +2,7 @@ const {
    addToCart,
    getCartArticleByUser,
    removeFromCart,
-} = require("../mysql/cartFunction");
+} = require("../service/cartService");
 
 exports.addArticleToCart = async (req, res) => {
    console.log("Données reçues dans le panier:", req.body);

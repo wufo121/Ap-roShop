@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllCategories } = require("../mysql/categoriesFunction");
+const { getAllCategories } = require("../service/categoryService");
 
 const router = express.Router();
 

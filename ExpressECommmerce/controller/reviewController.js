@@ -2,7 +2,7 @@ const {
    getReviews,
    addReviews,
    getNoteReviews,
-} = require("../mysql/reviewsFunction");
+} = require("../service/reviewService");
 
 exports.getArticleReviews = async (req, res) => {
    try {
